@@ -19,11 +19,12 @@
 ]]></content>
   </entry>
   <entry>
-    <title>hexo部落格</title>
-    <url>/hexo-web/2024/05/30/%E9%80%99%E6%98%AF%E7%AC%AC%E4%B8%80%E7%AF%87%E6%96%87%E7%AB%A0/</url>
-    <content><![CDATA[<h2 id="標題來了"><a href="#標題來了" class="headerlink" title="標題來了"></a>標題來了</h2><blockquote>
-<p>學習hexo快速建立部落格<br>mac 輸入終端機時要使用 sudo npm 開頭</p>
-</blockquote>
+    <title>修改hexo主題</title>
+    <url>/hexo-web/2024/05/30/%E9%80%99%E6%98%AF%E7%AC%AC%E4%BA%8C%E7%AF%87%E6%96%87%E7%AB%A0/</url>
+    <content><![CDATA[<h2 id="主題修改"><a href="#主題修改" class="headerlink" title="主題修改"></a>主題修改</h2><ul>
+<li>安裝theme樣板套件（點進主題後，install文字 copy and paste and run）</li>
+<li>再到主題資料夾內的 config.yml 修改細節</li>
+</ul>
 ]]></content>
       <tags>
         <tag>hexo</tag>
@@ -31,12 +32,11 @@
       </tags>
   </entry>
   <entry>
-    <title>修改hexo主題</title>
-    <url>/hexo-web/2024/05/30/%E9%80%99%E6%98%AF%E7%AC%AC%E4%BA%8C%E7%AF%87%E6%96%87%E7%AB%A0/</url>
-    <content><![CDATA[<h2 id="主題修改"><a href="#主題修改" class="headerlink" title="主題修改"></a>主題修改</h2><ul>
-<li>安裝theme樣板套件（點進主題後，install文字 copy and paste and run）</li>
-<li>再到主題資料夾內的 config.yml 修改細節</li>
-</ul>
+    <title>hexo部落格</title>
+    <url>/hexo-web/2024/05/30/%E9%80%99%E6%98%AF%E7%AC%AC%E4%B8%80%E7%AF%87%E6%96%87%E7%AB%A0/</url>
+    <content><![CDATA[<h2 id="標題來了"><a href="#標題來了" class="headerlink" title="標題來了"></a>標題來了</h2><blockquote>
+<p>學習hexo快速建立部落格<br>mac 輸入終端機時要使用 sudo npm 開頭</p>
+</blockquote>
 ]]></content>
       <tags>
         <tag>hexo</tag>
