@@ -1,0 +1,929 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="keywords" content="Hexo Theme Redefine">
+    
+    <meta name="author" content="Yu Huei Lin">
+    <!-- preconnect -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+
+    
+    <!--- Seo Part-->
+    
+    <link rel="canonical" href="https://maggie19921001.github.io/hexo-web/2024/08/07/api-關鍵字搜尋＋搜尋結果換頁/"/>
+    <meta name="robots" content="index,follow">
+    <meta name="googlebot" content="index,follow">
+    <meta name="revisit-after" content="1 days">
+    
+        <meta name="description" content="使用TDX API關鍵字搜尋，並依照分類執行換頁顯示結果  監聽搜尋按鈕並關閉預設提交機制 先判斷下拉選單的分類為何，再抓取資料 網址列中filter代入使用者輸入文字(須先觀察網址列規則) success中將搜尋結果存儲在localStorage，並跳轉至結果頁面  搜尋頁12345678910111213141516171819202122232425262728293031323334353">
+<meta property="og:type" content="article">
+<meta property="og:title" content="API 關鍵字搜尋＋搜尋結果換頁">
+<meta property="og:url" content="https://maggie19921001.github.io/hexo-web/2024/08/07/API-%E9%97%9C%E9%8D%B5%E5%AD%97%E6%90%9C%E5%B0%8B%EF%BC%8B%E6%90%9C%E5%B0%8B%E7%B5%90%E6%9E%9C%E6%8F%9B%E9%A0%81/index.html">
+<meta property="og:site_name" content="YuHuei&#39;s blog">
+<meta property="og:description" content="使用TDX API關鍵字搜尋，並依照分類執行換頁顯示結果  監聽搜尋按鈕並關閉預設提交機制 先判斷下拉選單的分類為何，再抓取資料 網址列中filter代入使用者輸入文字(須先觀察網址列規則) success中將搜尋結果存儲在localStorage，並跳轉至結果頁面  搜尋頁12345678910111213141516171819202122232425262728293031323334353">
+<meta property="og:locale" content="en_US">
+<meta property="article:published_time" content="2024-08-07T05:00:20.000Z">
+<meta property="article:modified_time" content="2024-08-07T05:18:32.703Z">
+<meta property="article:author" content="Yu Huei">
+<meta property="article:tag" content="API">
+<meta property="article:tag" content="JavaScript">
+<meta name="twitter:card" content="summary">
+    
+    
+    <!--- Icon Part-->
+    <link rel="icon" type="image/png" href="/hexo-web/images/logo-green.png" sizes="192x192">
+    <link rel="apple-touch-icon" sizes="180x180" href="/hexo-web/images/logo-green.png">
+    <meta name="theme-color" content="#295e43">
+    <link rel="shortcut icon" href="/hexo-web/images/logo-green.png">
+    <!--- Page Info-->
+    
+    <title>
+        
+            API 關鍵字搜尋＋搜尋結果換頁 -
+        
+        YuHuei
+    </title>
+
+    
+<link rel="stylesheet" href="/hexo-web/fonts/Chillax/chillax.css">
+
+
+    <!--- Inject Part-->
+    
+
+    
+        <style>
+    :root {
+        --preloader-background-color: #fff;
+        --preloader-text-color: #000;
+    }
+
+    @media (prefers-color-scheme: dark) {
+        :root {
+            --preloader-background-color: #202124;
+            --preloader-text-color: #fff;
+        }
+    }
+
+    @media (prefers-color-scheme: light) {
+        :root {
+            --preloader-background-color: #fff;
+            --preloader-text-color: #000;
+        }
+    }
+
+    @media (max-width: 600px) {
+        .ml13 {
+            font-size: 2.6rem !important; /* Adjust this value as needed */
+        }
+    }
+
+    .preloader {
+        display: flex;
+        flex-direction: column;
+        gap: 1rem; /* Tailwind 'gap-4' is 1rem */
+        align-items: center;
+        justify-content: center;
+        position: fixed;
+        padding: 12px;
+        top: 0;
+        right: 0;
+        bottom: 0;
+        left: 0;
+        width: 100vw;
+        height: 100vh; /* 'h-screen' is 100% of the viewport height */
+        background-color: var(--preloader-background-color);
+        z-index: 1100; /* 'z-[1100]' sets the z-index */
+        transition: opacity 0.2s ease-in-out;
+    }
+
+    .ml13 {
+        font-size: 3.2rem;
+        /* text-transform: uppercase; */
+        color: var(--preloader-text-color);
+        letter-spacing: -1px;
+        font-weight: 500;
+        font-family: 'Chillax-Variable', sans-serif;
+        text-align: center;
+    }
+
+    .ml13 .word {
+        display: inline-flex;
+        flex-wrap: wrap;
+        white-space: nowrap;
+    }
+
+    .ml13 .letter {
+        display: inline-block;
+        line-height: 1em;
+    }
+</style>
+
+<div class="preloader">
+    
+<script src="/hexo-web/js/libs/anime.min.js"></script>
+
+    <h1 class="ml13">
+        YuHuei
+    </h1>
+    <script>
+        var textWrapper = document.querySelector('.ml13');
+        // Split text into words
+        var words = textWrapper.textContent.trim().split(' ');
+
+        // Clear the existing content
+        textWrapper.innerHTML = '';
+
+        // Wrap each word and its letters in spans
+        words.forEach(function(word) {
+            var wordSpan = document.createElement('span');
+            wordSpan.classList.add('word');
+            wordSpan.innerHTML = word.replace(/\S/g, "<span class='letter'>$&</span>");
+            textWrapper.appendChild(wordSpan);
+            textWrapper.appendChild(document.createTextNode(' ')); // Add space between words
+        });
+
+
+        anime.timeline({loop: true})
+            .add({
+                targets: '.ml13 .letter',
+                translateY: [100,0],
+                translateZ: 0,
+                opacity: [0,1],
+                easing: "easeOutExpo",
+                duration: 1400,
+                delay: (el, i) => 300 + 30 * i
+            }).add({
+            targets: '.ml13 .letter',
+            translateY: [0,-100],
+            opacity: [1,0],
+            easing: "easeInExpo",
+            duration: 1200,
+            delay: (el, i) => 100 + 30 * i
+        });
+
+        let themeStatus = JSON.parse(localStorage.getItem('REDEFINE-THEME-STATUS'))?.isDark;
+
+        // If the theme status is not found in local storage, check the preferred color scheme
+        if (themeStatus === undefined || themeStatus === null) {
+            if (window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches) {
+                themeStatus = 'dark';
+            } else {
+                themeStatus = 'light';
+            }
+        }
+
+        // Now you can use the themeStatus variable in your code
+        if (themeStatus) {
+            document.documentElement.style.setProperty('--preloader-background-color', '#202124');
+            document.documentElement.style.setProperty('--preloader-text-color', '#fff');
+        } else {
+            document.documentElement.style.setProperty('--preloader-background-color', '#fff');
+            document.documentElement.style.setProperty('--preloader-text-color', '#000');
+        }
+
+        window.addEventListener('load', function () {
+            hidePreloaderAfterTimeout(1000); // Hide after 1000 milliseconds once the window has loaded
+        });
+
+        // Backup failsafe: Hide preloader after a maximum of 5000 milliseconds, regardless of the window load event
+        hidePreloaderAfterTimeout(5000);
+
+        function hidePreloaderAfterTimeout(delay) {
+            setTimeout(function () {
+                var preloader = document.querySelector('.preloader');
+                preloader.style.opacity = '0';
+                setTimeout(function () {
+                    preloader.style.display = 'none';
+                }, 200);
+            }, delay);
+        }
+    </script>
+</div>
+    
+
+    
+<link rel="stylesheet" href="/hexo-web/css/style.css">
+
+
+    
+        
+<link rel="stylesheet" href="/hexo-web/assets/build/styles.css">
+
+    
+
+    
+<link rel="stylesheet" href="/hexo-web/fonts/fonts.css">
+
+    
+<link rel="stylesheet" href="/hexo-web/fonts/Satoshi/satoshi.css">
+
+    <!--- Font Part-->
+    
+    
+    
+    
+
+
+    <script id="hexo-configurations">
+    window.config = {"hostname":"maggie19921001.github.io","root":"/hexo-web/","language":"en","path":"search.xml"};
+    window.theme = {"articles":{"style":{"font_size":"16px","line_height":1.5,"image_border_radius":"14px","image_alignment":"center","image_caption":false,"link_icon":true,"title_alignment":"left","headings_top_spacing":{"h1":"5rem","h2":"4rem","h3":"2.8rem","h4":"2.5rem","h5":"2.2rem","h6":"2rem"}},"word_count":{"enable":true,"count":true,"min2read":true},"author_label":{"enable":true,"auto":false,"list":[]},"code_block":{"copy":true,"style":"mac","font":{"enable":false,"family":null,"url":null}},"toc":{"enable":true,"max_depth":3,"number":false,"expand":true,"init_open":true},"copyright":{"enable":false,"default":"cc_by_nc_sa"},"lazyload":true,"recommendation":{"enable":false,"title":"推薦閱讀","limit":3,"mobile_limit":2,"placeholder":"/images/wallhaven-wqery6-light.webp","skip_dirs":[]}},"colors":{"primary":"#295e43","secondary":null,"default_mode":"dark"},"global":{"fonts":{"chinese":{"enable":false,"family":null,"url":null},"english":{"enable":false,"family":null,"url":null}},"content_max_width":"1000px","sidebar_width":"210px","hover":{"shadow":true,"scale":false},"scroll_progress":{"bar":false,"percentage":true},"website_counter":{"url":"https://cn.vercount.one/js","enable":false,"site_pv":false,"site_uv":false,"post_pv":false},"single_page":true,"preloader":true,"open_graph":true,"google_analytics":{"enable":false,"id":null}},"home_banner":{"enable":true,"style":"fixed","image":{"light":"/images/wallhaven-wqery6-light.webp","dark":"/images/wallhaven-wqery6-dark.webp"},"title":"YuHuei's Blog","subtitle":{"text":["文字的溫度","寫寫字 慢慢思考"],"hitokoto":{"enable":false,"api":"https://v1.hitokoto.cn"},"typing_speed":100,"backing_speed":80,"starting_delay":500,"backing_delay":1500,"loop":true,"smart_backspace":true},"text_color":{"light":"#fff","dark":"#d1d1b6"},"text_style":{"title_size":"2.8rem","subtitle_size":"1.5rem","line_height":1.2},"custom_font":{"enable":false,"family":null,"url":null},"social_links":{"enable":false,"style":"default","links":{"github":null,"instagram":null,"zhihu":null,"twitter":null,"email":"maggie19921001@gmail.com"},"qrs":{"weixin":null}}},"plugins":{"feed":{"enable":false},"aplayer":{"enable":false,"type":"fixed","audios":[{"name":null,"artist":null,"url":null,"cover":null,"lrc":null}]},"mermaid":{"enable":false,"version":"9.3.0"}},"version":"2.6.2","navbar":{"auto_hide":false,"color":{"left":"#f78736","right":"#367df7","transparency":35},"width":{"home":"1200px","pages":"1000px"},"links":{"Home":{"path":"https://maggie19921001.github.io/hexo-web/","icon":"fa-regular fa-house"},"Archives":{"path":"/archieve","icon":"fa-regular fa-archive"},"About":{"path":"/about","icon":"fa-regular fa-user"}},"search":{"enable":true,"preload":true}},"page_templates":{"friends_column":2,"tags_style":"cloud"},"home":{"sidebar":{"enable":true,"position":"right","first_item":"menu","announcement":"「公告」部落格成立第一天","show_on_mobile":true,"links":null},"article_date_format":"YYYY-MM-DD","categories":{"enable":true,"limit":5},"tags":{"enable":true,"limit":5}},"footerStart":"2024/6/1 22:17:14"};
+    window.lang_ago = {"second":"%s seconds ago","minute":"%s minutes ago","hour":"%s hours ago","day":"%s days ago","week":"%s weeks ago","month":"%s months ago","year":"%s years ago"};
+    window.data = {"masonry":false};
+  </script>
+    
+    <!--- Fontawesome Part-->
+    
+<link rel="stylesheet" href="/hexo-web/fontawesome/fontawesome.min.css">
+
+    
+<link rel="stylesheet" href="/hexo-web/fontawesome/brands.min.css">
+
+    
+<link rel="stylesheet" href="/hexo-web/fontawesome/solid.min.css">
+
+    
+<link rel="stylesheet" href="/hexo-web/fontawesome/regular.min.css">
+
+    
+    
+    
+    
+<meta name="generator" content="Hexo 7.2.0"></head>
+
+
+<body>
+<div class="progress-bar-container">
+    
+
+    
+        <span class="pjax-progress-bar"></span>
+<!--        <span class="swup-progress-icon">-->
+<!--            <i class="fa-solid fa-circle-notch fa-spin"></i>-->
+<!--        </span>-->
+    
+</div>
+
+
+<main class="page-container" id="swup">
+
+    
+
+    <div class="main-content-container">
+
+
+        <div class="main-content-header">
+            <header class="navbar-container px-6 md:px-12">
+
+    <div class="navbar-content ">
+        <div class="left">
+            
+            <a class="logo-title" href="/hexo-web/">
+                
+                YuHuei
+                
+            </a>
+        </div>
+
+        <div class="right">
+            <!-- PC -->
+            <div class="desktop">
+                <ul class="navbar-list">
+                    
+                        
+                            
+
+                            <li class="navbar-item">
+                                <!-- Menu -->
+                                <a class=""
+                                   href="https://maggie19921001.github.io/hexo-web/"
+                                        >
+                                    <i class="fa-regular fa-house fa-fw"></i>
+                                    HOME
+                                    
+                                </a>
+
+                                <!-- Submenu -->
+                                
+                            </li>
+                    
+                        
+                            
+
+                            <li class="navbar-item">
+                                <!-- Menu -->
+                                <a class=""
+                                   href="/hexo-web/archieve"
+                                        >
+                                    <i class="fa-regular fa-archive fa-fw"></i>
+                                    ARCHIVES
+                                    
+                                </a>
+
+                                <!-- Submenu -->
+                                
+                            </li>
+                    
+                        
+                            
+
+                            <li class="navbar-item">
+                                <!-- Menu -->
+                                <a class=""
+                                   href="/hexo-web/about"
+                                        >
+                                    <i class="fa-regular fa-user fa-fw"></i>
+                                    ABOUT
+                                    
+                                </a>
+
+                                <!-- Submenu -->
+                                
+                            </li>
+                    
+                    
+                        <li class="navbar-item search search-popup-trigger">
+                            <i class="fa-solid fa-magnifying-glass"></i>
+                        </li>
+                    
+                </ul>
+            </div>
+            <!-- Mobile -->
+            <div class="mobile">
+                
+                    <div class="icon-item search search-popup-trigger"><i class="fa-solid fa-magnifying-glass"></i>
+                    </div>
+                
+                <div class="icon-item navbar-bar">
+                    <div class="navbar-bar-middle"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Mobile sheet -->
+    <div class="navbar-drawer h-screen w-full absolute top-0 left-0 bg-background-color flex flex-col justify-between">
+        <ul class="drawer-navbar-list flex flex-col px-4 justify-center items-start">
+            
+                
+                    
+
+                    <li class="drawer-navbar-item text-base my-1.5 flex flex-col w-full">
+                        
+                        <a class="py-1.5 px-2 flex flex-row items-center justify-between gap-1 hover:!text-primary active:!text-primary text-2xl font-semibold group border-b border-border-color hover:border-primary w-full "
+                           href="https://maggie19921001.github.io/hexo-web/"
+                        >
+                            <span>
+                                HOME
+                            </span>
+                            
+                                <i class="fa-regular fa-house fa-sm fa-fw"></i>
+                            
+                        </a>
+                        
+
+                        
+                    </li>
+            
+                
+                    
+
+                    <li class="drawer-navbar-item text-base my-1.5 flex flex-col w-full">
+                        
+                        <a class="py-1.5 px-2 flex flex-row items-center justify-between gap-1 hover:!text-primary active:!text-primary text-2xl font-semibold group border-b border-border-color hover:border-primary w-full "
+                           href="/hexo-web/archieve"
+                        >
+                            <span>
+                                ARCHIVES
+                            </span>
+                            
+                                <i class="fa-regular fa-archive fa-sm fa-fw"></i>
+                            
+                        </a>
+                        
+
+                        
+                    </li>
+            
+                
+                    
+
+                    <li class="drawer-navbar-item text-base my-1.5 flex flex-col w-full">
+                        
+                        <a class="py-1.5 px-2 flex flex-row items-center justify-between gap-1 hover:!text-primary active:!text-primary text-2xl font-semibold group border-b border-border-color hover:border-primary w-full "
+                           href="/hexo-web/about"
+                        >
+                            <span>
+                                ABOUT
+                            </span>
+                            
+                                <i class="fa-regular fa-user fa-sm fa-fw"></i>
+                            
+                        </a>
+                        
+
+                        
+                    </li>
+            
+
+            
+            
+        </ul>
+
+        <div class="statistics flex justify-around my-2.5">
+    <a class="item tag-count-item flex flex-col justify-center items-center w-20" href="/hexo-web/tags">
+        <div class="number text-2xl sm:text-xl text-second-text-color font-semibold">4</div>
+        <div class="label text-third-text-color text-sm">Tags</div>
+    </a>
+    <a class="item tag-count-item flex flex-col justify-center items-center w-20" href="/hexo-web/categories">
+        <div class="number text-2xl sm:text-xl text-second-text-color font-semibold">0</div>
+        <div class="label text-third-text-color text-sm">Categories</div>
+    </a>
+    <a class="item tag-count-item flex flex-col justify-center items-center w-20" href="/hexo-web/archives">
+        <div class="number text-2xl sm:text-xl text-second-text-color font-semibold">5</div>
+        <div class="label text-third-text-color text-sm">Posts</div>
+    </a>
+</div>
+    </div>
+
+    <div class="window-mask"></div>
+
+</header>
+
+
+        </div>
+
+        <div class="main-content-body">
+
+            
+
+            <div class="main-content">
+
+                
+                    <div class="post-page-container flex relative justify-between box-border w-full h-full">
+    <div class="article-content-container">
+
+        <div class="article-title relative w-full">
+            
+                <div class="w-full flex items-center pt-6 justify-start">
+                    <h1 class="article-title-regular text-second-text-color text-4xl md:text-6xl font-bold px-2 sm:px-6 md:px-8 py-3">API 關鍵字搜尋＋搜尋結果換頁</h1>
+                </div>
+            
+            </div>
+
+        
+            <div class="article-header flex flex-row gap-2 items-center px-2 sm:px-6 md:px-8">
+                <div class="avatar w-[46px] h-[46px] flex-shrink-0 rounded-medium border border-border-color p-[1px]">
+                    <img src="/hexo-web/images/logo-green.png">
+                </div>
+                <div class="info flex flex-col justify-between">
+                    <div class="author flex items-center">
+                        <span class="name text-default-text-color text-lg font-semibold">Yu Huei Lin</span>
+                        
+                            <span class="author-label ml-1.5 text-xs px-2 py-0.5 rounded-small text-third-text-color border border-shadow-color-1">Lv1</span>
+                        
+                    </div>
+                    <div class="meta-info">
+                        <div class="article-meta-info">
+    <span class="article-date article-meta-item">
+        <i class="fa-regular fa-pen-fancy"></i>&nbsp;
+        <span class="desktop">2024-08-07 13:20</span>
+        <span class="mobile">2024-08-07 13:20</span>
+        <span class="hover-info">Created</span>
+    </span>
+    
+        <span class="article-date article-meta-item">
+            <i class="fa-regular fa-wrench"></i>&nbsp;
+            <span class="desktop">2024-08-07 13:18:32</span>
+            <span class="mobile">2024-08-07 13:18:32</span>
+            <span class="hover-info">Updated</span>
+        </span>
+    
+
+    
+    
+        <span class="article-tags article-meta-item">
+            <i class="fa-regular fa-tags"></i>&nbsp;
+            <ul>
+                
+                    <li>
+                        <a href="/hexo-web/tags/API/">API</a>&nbsp;
+                    </li>
+                
+                    <li>
+                        | <a href="/hexo-web/tags/JavaScript/">JavaScript</a>&nbsp;
+                    </li>
+                
+            </ul>
+        </span>
+    
+
+    
+    
+    
+    
+</div>
+
+                    </div>
+                </div>
+            </div>
+        
+
+        
+
+
+        <div class="article-content markdown-body px-2 sm:px-6 md:px-8 pb-8">
+            <p>使用TDX API關鍵字搜尋，並依照分類執行換頁顯示結果</p>
+<ol>
+<li>監聽搜尋按鈕並關閉預設提交機制</li>
+<li>先判斷下拉選單的分類為何，再抓取資料</li>
+<li>網址列中filter代入使用者輸入文字(須先觀察網址列規則)</li>
+<li><code>success</code>中將搜尋結果存儲在localStorage，並跳轉至結果頁面</li>
+</ol>
+<h2 id="搜尋頁"><a href="#搜尋頁" class="headerlink" title="搜尋頁"></a>搜尋頁</h2><div class="highlight-container" data-rel="Javascript"><figure class="iseeu highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">function</span> <span class="title function_">GetApiResponse</span>(<span class="params"></span>)&#123;    </span><br><span class="line">    <span class="keyword">let</span> accesstokenStr = $(<span class="string">&quot;#accesstoken&quot;</span>).<span class="title function_">text</span>();    </span><br><span class="line">    <span class="keyword">let</span> accesstoken = <span class="title class_">JSON</span>.<span class="title function_">parse</span>(accesstokenStr); </span><br><span class="line">    <span class="keyword">const</span> searchTxt = <span class="variable language_">document</span>.<span class="title function_">querySelector</span>(<span class="string">&quot;#search-txt&quot;</span>);</span><br><span class="line">    <span class="keyword">const</span> searchBtn = <span class="variable language_">document</span>.<span class="title function_">querySelector</span>(<span class="string">&quot;#search-btn&quot;</span>);</span><br><span class="line">    <span class="keyword">const</span> chooseType = <span class="variable language_">document</span>.<span class="title function_">querySelector</span>(<span class="string">&#x27;.choose&#x27;</span>);</span><br><span class="line">    </span><br><span class="line">    searchBtn.<span class="title function_">addEventListener</span>(<span class="string">&#x27;click&#x27;</span>,<span class="keyword">function</span>(<span class="params">e</span>)&#123;</span><br><span class="line">        e.<span class="title function_">preventDefault</span>(); <span class="comment">// 阻止表單提交</span></span><br><span class="line">        <span class="keyword">const</span> keyWord = searchTxt.<span class="property">value</span>;</span><br><span class="line">        <span class="keyword">if</span>(accesstoken !=<span class="literal">undefined</span>)&#123;</span><br><span class="line">            <span class="keyword">if</span>(chooseType.<span class="property">value</span>==<span class="string">&#x27;scene&#x27;</span>)&#123;</span><br><span class="line">                $.<span class="title function_">ajax</span>(&#123;</span><br><span class="line">                    <span class="attr">type</span>: <span class="string">&#x27;GET&#x27;</span>,</span><br><span class="line">                    <span class="attr">url</span>: <span class="string">`https://tdx.transportdata.tw/api/basic/v2/Tourism/ScenicSpot?%24filter=contains%28ScenicSpotName%2C%27<span class="subst">$&#123;keyWord&#125;</span>%27%29&amp;%24top=20&amp;%24format=JSON`</span>,             </span><br><span class="line">                    <span class="attr">headers</span>: &#123;</span><br><span class="line">                        <span class="string">&quot;authorization&quot;</span>: <span class="string">&quot;Bearer &quot;</span> + accesstoken.<span class="property">access_token</span>,</span><br><span class="line">                      &#125;,            </span><br><span class="line">                    <span class="attr">async</span>: <span class="literal">false</span>,</span><br><span class="line"></span><br><span class="line">                    <span class="attr">success</span>: <span class="keyword">function</span> (<span class="params">Data</span>) &#123;            </span><br><span class="line">                        <span class="comment">// 將搜尋結果存儲在localStorage</span></span><br><span class="line">                        <span class="variable language_">localStorage</span>.<span class="title function_">setItem</span>(<span class="string">&#x27;searchResults&#x27;</span>, <span class="title class_">JSON</span>.<span class="title function_">stringify</span>(<span class="title class_">Data</span>));</span><br><span class="line">                        <span class="comment">// 跳轉至結果頁面</span></span><br><span class="line">                        <span class="variable language_">window</span>.<span class="property">location</span>.<span class="property">href</span> = <span class="string">&#x27;/html/search_results.html&#x27;</span>;</span><br><span class="line">                    &#125;,</span><br><span class="line">                    <span class="attr">error</span>: <span class="keyword">function</span> (<span class="params">xhr, textStatus, thrownError</span>) &#123;</span><br><span class="line">                        <span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="string">&#x27;errorStatus:&#x27;</span>,textStatus);</span><br><span class="line">                        <span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="string">&#x27;Error:&#x27;</span>,thrownError);</span><br><span class="line">                    &#125;</span><br><span class="line">                &#125;);</span><br><span class="line">            &#125;<span class="keyword">else</span> <span class="keyword">if</span>(chooseType.<span class="property">value</span>==<span class="string">&#x27;event&#x27;</span>)&#123;</span><br><span class="line">                $.<span class="title function_">ajax</span>(&#123;</span><br><span class="line">                    <span class="attr">type</span>: <span class="string">&#x27;GET&#x27;</span>,</span><br><span class="line">                    <span class="attr">url</span>: <span class="string">`https://tdx.transportdata.tw/api/basic/v2/Tourism/Activity?%24filter=contains%28ActivityName%2C%27<span class="subst">$&#123;keyWord&#125;</span>%27%29&amp;%24top=20&amp;%24format=JSON`</span>,             </span><br><span class="line">                    <span class="attr">headers</span>: &#123;</span><br><span class="line">                        <span class="string">&quot;authorization&quot;</span>: <span class="string">&quot;Bearer &quot;</span> + accesstoken.<span class="property">access_token</span>,</span><br><span class="line">                      &#125;,            </span><br><span class="line">                    <span class="attr">async</span>: <span class="literal">false</span>,</span><br><span class="line">                    <span class="comment">//Data是陣列</span></span><br><span class="line">                    <span class="attr">success</span>: <span class="keyword">function</span> (<span class="params">Data</span>) &#123;</span><br><span class="line">                        <span class="comment">// $(&#x27;#apireponse&#x27;).text(JSON.stringify(Data));                </span></span><br><span class="line">                        <span class="comment">// 將搜尋結果存儲在localStorage</span></span><br><span class="line">                        <span class="variable language_">localStorage</span>.<span class="title function_">setItem</span>(<span class="string">&#x27;searchResults&#x27;</span>, <span class="title class_">JSON</span>.<span class="title function_">stringify</span>(<span class="title class_">Data</span>));</span><br><span class="line">                        <span class="comment">// 跳轉至結果頁面</span></span><br><span class="line">                        <span class="variable language_">window</span>.<span class="property">location</span>.<span class="property">href</span> = <span class="string">&#x27;/html/search_results.html&#x27;</span>;</span><br><span class="line">                    &#125;,</span><br><span class="line">                    <span class="attr">error</span>: <span class="keyword">function</span> (<span class="params">xhr, textStatus, thrownError</span>) &#123;</span><br><span class="line">                        <span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="string">&#x27;errorStatus:&#x27;</span>,textStatus);</span><br><span class="line">                        <span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="string">&#x27;Error:&#x27;</span>,thrownError);</span><br><span class="line">                    &#125;</span><br><span class="line">                &#125;);</span><br><span class="line">            &#125;<span class="keyword">else</span> <span class="keyword">if</span>(chooseType.<span class="property">value</span>==<span class="string">&#x27;food&#x27;</span>)&#123;</span><br><span class="line">                $.<span class="title function_">ajax</span>(&#123;</span><br><span class="line">                    <span class="attr">type</span>: <span class="string">&#x27;GET&#x27;</span>,</span><br><span class="line">                    <span class="attr">url</span>: <span class="string">`https://tdx.transportdata.tw/api/basic/v2/Tourism/Restaurant?%24filter=contains%28RestaurantName%2C%27<span class="subst">$&#123;keyWord&#125;</span>%27%29&amp;%24top=20&amp;%24format=JSON`</span>,             </span><br><span class="line">                    <span class="attr">headers</span>: &#123;</span><br><span class="line">                        <span class="string">&quot;authorization&quot;</span>: <span class="string">&quot;Bearer &quot;</span> + accesstoken.<span class="property">access_token</span>,</span><br><span class="line">                      &#125;,            </span><br><span class="line">                    <span class="attr">async</span>: <span class="literal">false</span>,</span><br><span class="line">                    </span><br><span class="line">                    <span class="comment">//Data是陣列</span></span><br><span class="line">                    <span class="attr">success</span>: <span class="keyword">function</span> (<span class="params">Data</span>) &#123;</span><br><span class="line">                        <span class="comment">// $(&#x27;#apireponse&#x27;).text(JSON.stringify(Data));                </span></span><br><span class="line">                        <span class="comment">// 將搜尋結果存儲在localStorage</span></span><br><span class="line">                        <span class="variable language_">localStorage</span>.<span class="title function_">setItem</span>(<span class="string">&#x27;searchResults&#x27;</span>, <span class="title class_">JSON</span>.<span class="title function_">stringify</span>(<span class="title class_">Data</span>));</span><br><span class="line">                        <span class="comment">// 跳轉至結果頁面</span></span><br><span class="line">                        <span class="variable language_">window</span>.<span class="property">location</span>.<span class="property">href</span> = <span class="string">&#x27;/html/search_results.html&#x27;</span>;</span><br><span class="line">                    &#125;,</span><br><span class="line">                    <span class="attr">error</span>: <span class="keyword">function</span> (<span class="params">xhr, textStatus, thrownError</span>) &#123;</span><br><span class="line">                        <span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="string">&#x27;errorStatus:&#x27;</span>,textStatus);</span><br><span class="line">                        <span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="string">&#x27;Error:&#x27;</span>,thrownError);</span><br><span class="line">                    &#125;</span><br><span class="line">                &#125;);</span><br><span class="line">            &#125;</span><br><span class="line">            </span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">    &#125;)</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></div>
+
+<ol start="5">
+<li>從localStorage中獲取搜尋結果</li>
+<li>設定組成畫面內容function<code>displayResults</code>(分三個分類的內容，個別帶入圖片及內容)</li>
+<li>加入監聽結果</li>
+</ol>
+<h2 id="結果頁"><a href="#結果頁" class="headerlink" title="結果頁"></a>結果頁</h2><div class="highlight-container" data-rel="Javascript"><figure class="iseeu highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br></pre></td><td class="code"><pre><span class="line"><span class="variable language_">document</span>.<span class="title function_">addEventListener</span>(<span class="string">&#x27;DOMContentLoaded&#x27;</span>, <span class="keyword">function</span>(<span class="params"></span>) &#123;</span><br><span class="line">    <span class="comment">// 從localStorage中獲取搜尋結果</span></span><br><span class="line">    <span class="keyword">const</span> results = <span class="title class_">JSON</span>.<span class="title function_">parse</span>(<span class="variable language_">localStorage</span>.<span class="title function_">getItem</span>(<span class="string">&#x27;searchResults&#x27;</span>));</span><br><span class="line">    <span class="title function_">displayResults</span>(results);</span><br><span class="line">&#125;);</span><br><span class="line"></span><br><span class="line"><span class="keyword">function</span> <span class="title function_">displayResults</span>(<span class="params">results</span>) &#123;</span><br><span class="line">    <span class="keyword">const</span> resultsContainer = <span class="variable language_">document</span>.<span class="title function_">querySelector</span>(<span class="string">&#x27;.result-main&#x27;</span>);</span><br><span class="line">    <span class="keyword">let</span> str =<span class="string">&quot;&quot;</span>;</span><br><span class="line">    </span><br><span class="line">    results.<span class="title function_">forEach</span>(<span class="function"><span class="params">result</span> =&gt;</span> &#123;</span><br><span class="line">        <span class="keyword">const</span> address = result.<span class="property">Address</span>.<span class="title function_">substring</span>(<span class="number">0</span>,<span class="number">3</span>);</span><br><span class="line">        <span class="keyword">if</span>(result.<span class="property">ScenicSpotName</span>)&#123;</span><br><span class="line">            <span class="keyword">if</span>(result.<span class="property">Picture</span> &amp;&amp; result.<span class="property">Picture</span>.<span class="property">PictureUrl1</span>)&#123;</span><br><span class="line">                str+=<span class="string">`&lt;div class=&quot;spot-box&quot;&gt;</span></span><br><span class="line"><span class="string">                    &lt;div class=&quot;spot-pic&quot; style=&quot;background-image: url(<span class="subst">$&#123;result.Picture.PictureUrl1&#125;</span>); aria-label=&quot;<span class="subst">$&#123;result.PictureDescription1&#125;</span>&quot;&quot;&gt;&lt;/div&gt;</span></span><br><span class="line"><span class="string">                    &lt;p class=&quot;spot-name fc-pri fw-7&quot;&gt;<span class="subst">$&#123;result.ScenicSpotName&#125;</span>&lt;/p&gt;</span></span><br><span class="line"><span class="string">                    &lt;div class=&quot;event-location dfaic&quot;&gt;</span></span><br><span class="line"><span class="string">                    &lt;img src=&quot;/images/Icon/spot16.png&quot; alt=&quot;&quot;&gt;</span></span><br><span class="line"><span class="string">                    &lt;span class=&quot;place fc-sub&quot;&gt;<span class="subst">$&#123;address&#125;</span>&lt;/span&gt;</span></span><br><span class="line"><span class="string">                    &lt;/div&gt;</span></span><br><span class="line"><span class="string">                &lt;/div&gt;`</span></span><br><span class="line">            &#125;<span class="keyword">else</span>&#123;</span><br><span class="line">                str+=<span class="string">`&lt;div class=&quot;spot-box&quot;&gt;</span></span><br><span class="line"><span class="string">                    &lt;div class=&quot;spot-pic&quot; style=&quot;background-image: url(/images/Images/Rectangle\ 85.png);&quot; aria-label=&quot;無附圖&quot;&gt;&lt;/div&gt;</span></span><br><span class="line"><span class="string">                    &lt;p class=&quot;spot-name fc-pri fw-7&quot;&gt;<span class="subst">$&#123;result.ScenicSpotName&#125;</span>&lt;/p&gt;</span></span><br><span class="line"><span class="string">                    &lt;div class=&quot;event-location dfaic&quot;&gt;</span></span><br><span class="line"><span class="string">                    &lt;img src=&quot;/images/Icon/spot16.png&quot; alt=&quot;&quot;&gt;</span></span><br><span class="line"><span class="string">                    &lt;span class=&quot;place fc-sub&quot;&gt;<span class="subst">$&#123;result.City&#125;</span>&lt;/span&gt;</span></span><br><span class="line"><span class="string">                    &lt;/div&gt;</span></span><br><span class="line"><span class="string">                &lt;/div&gt;`</span></span><br><span class="line">            &#125;</span><br><span class="line">        &#125;<span class="keyword">else</span> <span class="keyword">if</span>(result.<span class="property">ActivityName</span>)&#123;</span><br><span class="line">            <span class="keyword">if</span>(result.<span class="property">Picture</span> &amp;&amp; result.<span class="property">Picture</span>.<span class="property">PictureUrl1</span>)&#123;</span><br><span class="line">                str+=<span class="string">`&lt;div class=&quot;spot-box&quot;&gt;</span></span><br><span class="line"><span class="string">                    &lt;div class=&quot;spot-pic&quot; style=&quot;background-image: url(<span class="subst">$&#123;result.Picture.PictureUrl1&#125;</span>); aria-label=&quot;<span class="subst">$&#123;result.PictureDescription1&#125;</span>&quot;&quot;&gt;&lt;/div&gt;</span></span><br><span class="line"><span class="string">                    &lt;p class=&quot;spot-name fc-pri fw-7&quot;&gt;<span class="subst">$&#123;result.ActivityName&#125;</span>&lt;/p&gt;</span></span><br><span class="line"><span class="string">                    &lt;div class=&quot;event-location dfaic&quot;&gt;</span></span><br><span class="line"><span class="string">                    &lt;img src=&quot;/images/Icon/spot16.png&quot; alt=&quot;&quot;&gt;</span></span><br><span class="line"><span class="string">                    &lt;span class=&quot;place fc-sub&quot;&gt;<span class="subst">$&#123;result.City&#125;</span>&lt;/span&gt;</span></span><br><span class="line"><span class="string">                    &lt;/div&gt;</span></span><br><span class="line"><span class="string">                &lt;/div&gt;`</span></span><br><span class="line">            &#125;<span class="keyword">else</span>&#123;</span><br><span class="line">                str+=<span class="string">`&lt;div class=&quot;spot-box&quot;&gt;</span></span><br><span class="line"><span class="string">                    &lt;div class=&quot;spot-pic&quot; style=&quot;background-image: url(/images/Images/Rectangle\ 85.png);&quot; aria-label=&quot;無附圖&quot;&gt;&lt;/div&gt;</span></span><br><span class="line"><span class="string">                    &lt;p class=&quot;spot-name fc-pri fw-7&quot;&gt;<span class="subst">$&#123;result.ActivityName&#125;</span>&lt;/p&gt;</span></span><br><span class="line"><span class="string">                    &lt;div class=&quot;event-location dfaic&quot;&gt;</span></span><br><span class="line"><span class="string">                    &lt;img src=&quot;/images/Icon/spot16.png&quot; alt=&quot;&quot;&gt;</span></span><br><span class="line"><span class="string">                    &lt;span class=&quot;place fc-sub&quot;&gt;<span class="subst">$&#123;result.City&#125;</span>&lt;/span&gt;</span></span><br><span class="line"><span class="string">                    &lt;/div&gt;</span></span><br><span class="line"><span class="string">                &lt;/div&gt;`</span></span><br><span class="line">            &#125;</span><br><span class="line">        &#125;<span class="keyword">else</span>&#123;</span><br><span class="line">            <span class="keyword">if</span>(result.<span class="property">Picture</span> &amp;&amp; result.<span class="property">Picture</span>.<span class="property">PictureUrl1</span>)&#123;</span><br><span class="line">                str+=<span class="string">`&lt;div class=&quot;spot-box&quot;&gt;</span></span><br><span class="line"><span class="string">                    &lt;div class=&quot;spot-pic&quot; style=&quot;background-image: url(<span class="subst">$&#123;result.Picture.PictureUrl1&#125;</span>); aria-label=&quot;<span class="subst">$&#123;result.PictureDescription1&#125;</span>&quot;&quot;&gt;&lt;/div&gt;</span></span><br><span class="line"><span class="string">                    &lt;p class=&quot;spot-name fc-pri fw-7&quot;&gt;<span class="subst">$&#123;result.RestaurantName&#125;</span>&lt;/p&gt;</span></span><br><span class="line"><span class="string">                    &lt;div class=&quot;event-location dfaic&quot;&gt;</span></span><br><span class="line"><span class="string">                    &lt;img src=&quot;/images/Icon/spot16.png&quot; alt=&quot;&quot;&gt;</span></span><br><span class="line"><span class="string">                    &lt;span class=&quot;place fc-sub&quot;&gt;<span class="subst">$&#123;result.City&#125;</span>&lt;/span&gt;</span></span><br><span class="line"><span class="string">                    &lt;/div&gt;</span></span><br><span class="line"><span class="string">                &lt;/div&gt;`</span></span><br><span class="line">            &#125;<span class="keyword">else</span>&#123;</span><br><span class="line">                str+=<span class="string">`&lt;div class=&quot;spot-box&quot;&gt;</span></span><br><span class="line"><span class="string">                    &lt;div class=&quot;spot-pic&quot; style=&quot;background-image: url(/images/Images/Rectangle\ 85.png);&quot; aria-label=&quot;無附圖&quot;&gt;&lt;/div&gt;</span></span><br><span class="line"><span class="string">                    &lt;p class=&quot;spot-name fc-pri fw-7&quot;&gt;<span class="subst">$&#123;result.RestaurantName&#125;</span>&lt;/p&gt;</span></span><br><span class="line"><span class="string">                    &lt;div class=&quot;event-location dfaic&quot;&gt;</span></span><br><span class="line"><span class="string">                    &lt;img src=&quot;/images/Icon/spot16.png&quot; alt=&quot;&quot;&gt;</span></span><br><span class="line"><span class="string">                    &lt;span class=&quot;place fc-sub&quot;&gt;<span class="subst">$&#123;result.City&#125;</span>&lt;/span&gt;</span></span><br><span class="line"><span class="string">                    &lt;/div&gt;</span></span><br><span class="line"><span class="string">                &lt;/div&gt;`</span></span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;);</span><br><span class="line">    resultsContainer.<span class="property">innerHTML</span> = str;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></div>
+        </div>
+
+        
+
+        
+            <ul class="post-tags-box text-lg mt-1.5 flex-wrap justify-center flex md:hidden">
+                
+                    <li class="tag-item mx-0.5">
+                        <a href="/hexo-web/tags/API/">#API</a>&nbsp;
+                    </li>
+                
+                    <li class="tag-item mx-0.5">
+                        <a href="/hexo-web/tags/JavaScript/">#JavaScript</a>&nbsp;
+                    </li>
+                
+            </ul>
+        
+
+        
+
+        
+            <div class="article-nav my-8 flex justify-between items-center px-2 sm:px-6 md:px-8">
+                
+                
+                    <div class="article-next border-border-color shadow-redefine-flat shadow-shadow-color-2 rounded-medium px-4 py-2 hover:shadow-redefine-flat-hover hover:shadow-shadow-color-2">
+                        <a class="next"
+                        rel="next"
+                        href="/hexo-web/2024/08/07/TDX-API-%E4%B8%B2%E6%8E%A5-2024/"
+                        >
+                            <span class="title flex justify-center items-center">
+                                <span class="post-nav-title-item">TDX API 串接(2024)</span>
+                                <span class="post-nav-item">Next posts</span>
+                            </span>
+                            <span class="right arrow-icon flex justify-center items-center">
+                                <i class="fa-solid fa-chevron-right"></i>
+                            </span>
+                        </a>
+                    </div>
+                
+            </div>
+        
+
+
+        
+            <div class="comment-container px-2 sm:px-6 md:px-8 pb-8">
+                <div class="comments-container mt-10 w-full ">
+    <div id="comment-anchor" class="w-full h-2.5"></div>
+    <div class="comment-area-title w-full my-1.5 md:my-2.5 text-xl md:text-3xl font-bold">
+        Comments
+    </div>
+    
+
+        
+            
+    <div id="waline"></div>
+    <script type="module" data-swup-reload-script>
+      import { init } from '/hexo-web/js/libs/waline.mjs';
+
+      function loadWaline() {
+        init({
+          el: '#waline',
+          serverURL: 'https://example.example.com',
+          lang: 'zh-US',
+          dark: 'body[class~="dark-mode"]',
+          requiredMeta: ['nick', 'mail'],
+          emoji: [],
+          recaptchaV3Key: "wasd",
+          
+        });
+      }
+
+      if (typeof swup !== 'undefined') {
+        loadWaline();
+      } else {
+        window.addEventListener('DOMContentLoaded', loadWaline);
+      }
+    </script>
+
+
+
+        
+    
+</div>
+
+            </div>
+        
+    </div>
+
+    
+        <div class="toc-content-container">
+            <div class="post-toc-wrap">
+    <div class="post-toc">
+        <div class="toc-title">On this page</div>
+        <div class="page-title">API 關鍵字搜尋＋搜尋結果換頁</div>
+        <ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%90%9C%E5%B0%8B%E9%A0%81"><span class="nav-text">搜尋頁</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E7%B5%90%E6%9E%9C%E9%A0%81"><span class="nav-text">結果頁</span></a></li></ol>
+
+    </div>
+</div>
+        </div>
+    
+</div>
+
+
+
+                
+
+            </div>
+
+            
+
+        </div>
+
+        <div class="main-content-footer">
+            <footer class="footer mt-5 py-5 h-auto text-base text-third-text-color relative border-t-2 border-t-border-color">
+    <div class="info-container py-3 text-center">
+        
+        <div class="text-center">
+            &copy;
+            
+              <span>2024</span>
+              -
+            
+            2024&nbsp;&nbsp;<i class="fa-solid fa-heart fa-beat" style="--fa-animation-duration: 0.5s; color: #ff776e"></i>&nbsp;&nbsp;<a href="/hexo-web/">Yu Huei Lin</a>
+            
+        </div>
+        
+        <div class="relative text-center lg:absolute lg:left-[20px] lg:top-1/2 lg:-translate-y-1/2 lg:text-left">
+            <span class="lg:block text-sm">POWERED BY <?xml version="1.0" encoding="utf-8"?><!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN" "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd"><svg class="relative top-[2px] inline-block align-baseline" version="1.1" id="圖層_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" width="1rem" height="1rem" viewBox="0 0 512 512" enable-background="new 0 0 512 512" xml:space="preserve"><path fill="#0E83CD" d="M256.4,25.8l-200,115.5L56,371.5l199.6,114.7l200-115.5l0.4-230.2L256.4,25.8z M349,354.6l-18.4,10.7l-18.6-11V275H200v79.6l-18.4,10.7l-18.6-11v-197l18.5-10.6l18.5,10.8V237h112v-79.6l18.5-10.6l18.5,10.8V354.6z"/></svg><a target="_blank" class="text-base" href="https://hexo.io">Hexo</a></span>
+            <span class="text-sm lg:block">THEME&nbsp;<a class="text-base" target="_blank" href="https://github.com/EvanNotFound/hexo-theme-redefine">Redefine v2.6.2</a></span>
+        </div>
+        
+        
+            <div>
+                Blog up for <span class="odometer" id="runtime_days" ></span> days <span class="odometer" id="runtime_hours"></span> hrs <span class="odometer" id="runtime_minutes"></span> Min <span class="odometer" id="runtime_seconds"></span> Sec
+            </div>
+        
+        
+            <script data-swup-reload-script>
+                try {
+                    function odometer_init() {
+                    const elements = document.querySelectorAll('.odometer');
+                    elements.forEach(el => {
+                        new Odometer({
+                            el,
+                            format: '( ddd).dd',
+                            duration: 200
+                        });
+                    });
+                    }
+                    odometer_init();
+                } catch (error) {}
+            </script>
+        
+        
+        
+    </div>  
+</footer>
+        </div>
+    </div>
+
+    
+        <div class="post-tools">
+            <div class="post-tools-container">
+    <ul class="article-tools-list">
+        <!-- TOC aside toggle -->
+        
+            <li class="right-bottom-tools page-aside-toggle">
+                <i class="fa-regular fa-outdent"></i>
+            </li>
+        
+
+        <!-- go comment -->
+        
+            <li class="go-comment">
+                <i class="fa-regular fa-comments"></i>
+            </li>
+        
+    </ul>
+</div>
+
+        </div>
+    
+
+    <div class="right-side-tools-container">
+        <div class="side-tools-container">
+    <ul class="hidden-tools-list">
+        <li class="right-bottom-tools tool-font-adjust-plus flex justify-center items-center">
+            <i class="fa-regular fa-magnifying-glass-plus"></i>
+        </li>
+
+        <li class="right-bottom-tools tool-font-adjust-minus flex justify-center items-center">
+            <i class="fa-regular fa-magnifying-glass-minus"></i>
+        </li>
+
+        <li class="right-bottom-tools tool-dark-light-toggle flex justify-center items-center">
+            <i class="fa-regular fa-moon"></i>
+        </li>
+
+        <!-- rss -->
+        
+
+        
+
+        <li class="right-bottom-tools tool-scroll-to-bottom flex justify-center items-center">
+            <i class="fa-regular fa-arrow-down"></i>
+        </li>
+    </ul>
+
+    <ul class="visible-tools-list">
+        <li class="right-bottom-tools toggle-tools-list flex justify-center items-center">
+            <i class="fa-regular fa-cog fa-spin"></i>
+        </li>
+        
+            <li class="right-bottom-tools tool-scroll-to-top flex justify-center items-center">
+                <i class="arrow-up fas fa-arrow-up"></i>
+                <span class="percent"></span>
+            </li>
+        
+        
+    </ul>
+</div>
+
+    </div>
+
+    <div class="image-viewer-container">
+    <img src="">
+</div>
+
+
+    
+        <div class="search-pop-overlay">
+    <div class="popup search-popup">
+        <div class="search-header">
+          <span class="search-input-field-pre">
+            <i class="fa-solid fa-keyboard"></i>
+          </span>
+            <div class="search-input-container">
+                <input autocomplete="off"
+                       autocorrect="off"
+                       autocapitalize="off"
+                       placeholder="Search..."
+                       spellcheck="false"
+                       type="search"
+                       class="search-input"
+                >
+            </div>
+            <span class="popup-btn-close">
+                <i class="fa-solid fa-times"></i>
+            </span>
+        </div>
+        <div id="search-result">
+            <div id="no-result">
+                <i class="fa-solid fa-spinner fa-spin-pulse fa-5x fa-fw"></i>
+            </div>
+        </div>
+    </div>
+</div>
+
+    
+
+</main>
+
+
+    
+<script src="/hexo-web/js/libs/Swup.min.js"></script>
+
+<script src="/hexo-web/js/libs/SwupSlideTheme.min.js"></script>
+
+<script src="/hexo-web/js/libs/SwupScriptsPlugin.min.js"></script>
+
+<script src="/hexo-web/js/libs/SwupProgressPlugin.min.js"></script>
+
+<script src="/hexo-web/js/libs/SwupScrollPlugin.min.js"></script>
+
+<script src="/hexo-web/js/libs/SwupPreloadPlugin.min.js"></script>
+
+<script>
+    const swup = new Swup({
+        plugins: [
+            new SwupScriptsPlugin({
+                optin: true,
+            }),
+            new SwupProgressPlugin(),
+            new SwupScrollPlugin({
+                offset: 80,
+            }),
+            new SwupSlideTheme({
+                mainElement: ".main-content-body",
+            }),
+            new SwupPreloadPlugin(),
+        ],
+        containers: ["#swup"],
+    });
+</script>
+
+
+
+
+
+
+
+<script src="/hexo-web/js/tools/imageViewer.js" type="module"></script>
+
+<script src="/hexo-web/js/utils.js" type="module"></script>
+
+<script src="/hexo-web/js/main.js" type="module"></script>
+
+<script src="/hexo-web/js/layouts/navbarShrink.js" type="module"></script>
+
+<script src="/hexo-web/js/tools/scrollTopBottom.js" type="module"></script>
+
+<script src="/hexo-web/js/tools/lightDarkSwitch.js" type="module"></script>
+
+<script src="/hexo-web/js/layouts/categoryList.js" type="module"></script>
+
+
+
+    
+<script src="/hexo-web/js/tools/localSearch.js" type="module"></script>
+
+
+
+
+    
+<script src="/hexo-web/js/tools/codeBlock.js" type="module"></script>
+
+
+
+
+    
+<script src="/hexo-web/js/layouts/lazyload.js" type="module"></script>
+
+
+
+
+    
+<script src="/hexo-web/js/tools/runtime.js"></script>
+
+    
+<script src="/hexo-web/js/libs/odometer.min.js"></script>
+
+    
+<link rel="stylesheet" href="/hexo-web/assets/odometer-theme-minimal.css">
+
+
+
+
+  
+<script src="/hexo-web/js/libs/Typed.min.js"></script>
+
+  
+<script src="/hexo-web/js/plugins/typed.js" type="module"></script>
+
+
+
+
+
+
+
+
+
+<div class="post-scripts" data-swup-reload-script>
+    
+        
+<script src="/hexo-web/js/tools/tocToggle.js" type="module"></script>
+
+<script src="/hexo-web/js/layouts/toc.js" type="module"></script>
+
+<script src="/hexo-web/js/plugins/tabs.js" type="module"></script>
+
+    
+</div>
+
+
+</body>
+</html>
