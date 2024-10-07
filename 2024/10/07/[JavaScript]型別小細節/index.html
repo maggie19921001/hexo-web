@@ -18,15 +18,15 @@
     <meta name="googlebot" content="index,follow">
     <meta name="revisit-after" content="1 days">
     
-        <meta name="description" content="型別 原始型別: Number, String, Boolean, Null, Undefined, BigInt, Symbol 物件型別: Object（物件 &#123;&#125;, 陣列 []，函式 function()）  使用 typeof 檢查變數型別。 宣告變數ES6 之後，JavaScript 引入了 let 和 const，取代了早期的 var。 123let a &#x3D; 1;">
+        <meta name="description" content="型別 原始型別: Number, String, Boolean, Null, Undefined, BigInt, Symbol 物件型別: Object（物件 &#123;&#125;, 陣列 []，函式 function()）  使用 typeof 檢查變數型別 12let a &#x3D; 10;console.log(typeof a); &#x2F;&#x2F; &quot;number&quot;  宣告變數ES">
 <meta property="og:type" content="article">
 <meta property="og:title" content="JavaScript型別小細節">
 <meta property="og:url" content="https://maggie19921001.github.io/hexo-web/2024/10/07/[JavaScript]%E5%9E%8B%E5%88%A5%E5%B0%8F%E7%B4%B0%E7%AF%80/index.html">
 <meta property="og:site_name" content="YuHuei&#39;s blog">
-<meta property="og:description" content="型別 原始型別: Number, String, Boolean, Null, Undefined, BigInt, Symbol 物件型別: Object（物件 &#123;&#125;, 陣列 []，函式 function()）  使用 typeof 檢查變數型別。 宣告變數ES6 之後，JavaScript 引入了 let 和 const，取代了早期的 var。 123let a &#x3D; 1;">
+<meta property="og:description" content="型別 原始型別: Number, String, Boolean, Null, Undefined, BigInt, Symbol 物件型別: Object（物件 &#123;&#125;, 陣列 []，函式 function()）  使用 typeof 檢查變數型別 12let a &#x3D; 10;console.log(typeof a); &#x2F;&#x2F; &quot;number&quot;  宣告變數ES">
 <meta property="og:locale" content="en_US">
 <meta property="article:published_time" content="2024-10-07T08:45:50.000Z">
-<meta property="article:modified_time" content="2024-10-07T12:06:46.743Z">
+<meta property="article:modified_time" content="2024-10-07T12:25:49.536Z">
 <meta property="article:author" content="Yu Huei">
 <meta property="article:tag" content="JavaScript">
 <meta name="twitter:card" content="summary">
@@ -548,8 +548,8 @@
     
         <span class="article-date article-meta-item">
             <i class="fa-regular fa-wrench"></i>&nbsp;
-            <span class="desktop">2024-10-07 20:06:46</span>
-            <span class="mobile">2024-10-07 20:06:46</span>
+            <span class="desktop">2024-10-07 20:25:49</span>
+            <span class="mobile">2024-10-07 20:25:49</span>
             <span class="hover-info">Updated</span>
         </span>
     
@@ -587,9 +587,11 @@
 <li><strong>原始型別</strong>: <code>Number</code>, <code>String</code>, <code>Boolean</code>, <code>Null</code>, <code>Undefined</code>, <code>BigInt</code>, <code>Symbol</code></li>
 <li><strong>物件型別</strong>: <code>Object</code>（物件 <code>&#123;&#125;</code>, 陣列 <code>[]</code>，函式 <code>function()</code>）</li>
 </ul>
-<p>使用 <code>typeof</code> 檢查變數型別。</p>
+<p>使用 <code>typeof</code> 檢查變數型別</p>
+<div class="highlight-container" data-rel="Javascript"><figure class="iseeu highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">let</span> a = <span class="number">10</span>;</span><br><span class="line"><span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="keyword">typeof</span> a); <span class="comment">// &quot;number&quot;</span></span><br></pre></td></tr></table></figure></div>
+
 <h2 id="宣告變數"><a href="#宣告變數" class="headerlink" title="宣告變數"></a>宣告變數</h2><p>ES6 之後，JavaScript 引入了 <code>let</code> 和 <code>const</code>，取代了早期的 <code>var</code>。</p>
-<div class="highlight-container" data-rel="Javascript"><figure class="iseeu highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">let</span> a = <span class="number">1</span>;  <span class="comment">// 可變</span></span><br><span class="line"><span class="keyword">const</span> b = <span class="number">2</span>;  <span class="comment">// 不可變</span></span><br><span class="line"><span class="keyword">var</span> c = <span class="number">3</span>;  <span class="comment">// 舊式宣告</span></span><br></pre></td></tr></table></figure></div>
+<div class="highlight-container" data-rel="Javascript"><figure class="iseeu highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">let</span> a = <span class="number">1</span>;  <span class="comment">// 可以重新賦值</span></span><br><span class="line"><span class="keyword">const</span> b = <span class="number">2</span>; <span class="comment">// 不能重新賦值</span></span><br><span class="line"><span class="keyword">var</span> c = <span class="number">3</span>;  <span class="comment">// 舊式的寫法，可以重複宣告</span></span><br></pre></td></tr></table></figure></div>
 
 <table>
 <thead>
@@ -597,7 +599,7 @@
 <th>宣告詞</th>
 <th>特性</th>
 <th>作用域</th>
-<th>提升</th>
+<th>提升 (Hoisting)</th>
 </tr>
 </thead>
 <tbody><tr>
@@ -616,22 +618,25 @@
 <td>var</td>
 <td>可重複宣告、賦值</td>
 <td>全域&#x2F;函式</td>
-<td>宣告前可使用（undefined）</td>
+<td>宣告前使用（undefined）</td>
 </tr>
 </tbody></table>
 <blockquote>
-<p><strong>區塊作用域</strong>：{} 內有效，通常是函式內部。區域變數可存取全域變數，但不影響全域變數。<br>**暫時性死區 (TDZ)**：變數在宣告前不可使用。</p>
+<p><strong>區塊作用域</strong>：{} 內有效，通常在函式內部。區塊中可存取全域變數，但不影響全域變數。<br>**暫時性死區 (TDZ)**：變數在宣告前不可使用，且程式碼會顯示錯誤。</p>
 </blockquote>
-<h3 id="宣告變數的意義"><a href="#宣告變數的意義" class="headerlink" title="宣告變數的意義"></a>宣告變數的意義</h3><p>避免全域或區域污染，減少變數名稱重複。</p>
-<blockquote>
-<p><code>var</code> 是舊式方法，允許重複宣告，容易導致錯誤。並且它會自動成為 <code>window</code> 物件的屬性，無法刪除。<br><code>const</code> 若為物件，雖無法重新賦值，但可以修改屬性。</p>
-</blockquote>
+<h3 id="宣告變數的意義"><a href="#宣告變數的意義" class="headerlink" title="宣告變數的意義"></a>宣告變數的意義</h3><p>宣告變數可以控制變數的作用範圍，避免全域變數污染（全域變數太多容易出錯）。<br>特別是用 <code>var</code> 時，幾千行程式碼後可能會讓你忘記前面已經有相同名稱的變數了，可能會不小心重複宣告，還不會顯示錯誤。</p>
+<p>另外，<code>const</code> 宣告的物件可以修改內容，因為物件是「傳參考」。也就是說，你可以更改物件內的屬性，但不能把它指向另一個物件。</p>
 <h3 id="值的傳遞"><a href="#值的傳遞" class="headerlink" title="值的傳遞"></a>值的傳遞</h3><ul>
 <li><p><strong>原始型別</strong>：傳值（複製一份）</p>
-<div class="highlight-container" data-rel="Javascript"><figure class="iseeu highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">let</span> a = <span class="number">1</span>;</span><br><span class="line"><span class="keyword">let</span> b = a;  <span class="comment">// b = 1</span></span><br><span class="line">a = <span class="number">3</span>;  <span class="comment">// b 不變</span></span><br></pre></td></tr></table></figure></div>
+<ul>
+<li>如果把一個原始型別的變數賦值給另一個變數，實際上是把那個值「複製」過去。後來即使原變數改變，複製的變數也不會受影響。 <div class="highlight-container" data-rel="Javascript"><figure class="iseeu highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">let</span> a = <span class="number">1</span>;</span><br><span class="line"><span class="keyword">let</span> b = a;</span><br><span class="line">a = <span class="number">3</span>;</span><br><span class="line"><span class="variable language_">console</span>.<span class="title function_">log</span>(b); <span class="comment">// b 還是 1</span></span><br></pre></td></tr></table></figure></div></li>
+</ul>
 </li>
 <li><p><strong>物件型別</strong>：傳址（傳記憶體位置）</p>
-<div class="highlight-container" data-rel="Javascript"><figure class="iseeu highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">let</span> c = [<span class="number">1</span>, <span class="number">2</span>, <span class="number">3</span>];</span><br><span class="line"><span class="keyword">let</span> d = c;  <span class="comment">// d 與 c 共享記憶體位置</span></span><br><span class="line">c.<span class="title function_">push</span>(<span class="number">4</span>);  <span class="comment">// d 也會改變</span></span><br></pre></td></tr></table></figure></div></li>
+<ul>
+<li>物件型別的變數傳遞的是記憶體位置（參考）。當你改變其中一個變數的內容，另一個也會同步更改，因為它們指向同一個記憶體地址。 <div class="highlight-container" data-rel="Javascript"><figure class="iseeu highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">let</span> c = [<span class="number">1</span>, <span class="number">2</span>, <span class="number">3</span>];</span><br><span class="line"><span class="keyword">let</span> d = c;</span><br><span class="line">c.<span class="title function_">push</span>(<span class="number">4</span>);</span><br><span class="line"><span class="variable language_">console</span>.<span class="title function_">log</span>(d); <span class="comment">// d 也會是 [1, 2, 3, 4]</span></span><br></pre></td></tr></table></figure></div></li>
+</ul>
+</li>
 </ul>
 <p><strong>詞法作用域</strong>（Lexical Scope）是指在程式中，<strong>變數的可見範圍</strong>是根據程式碼的<strong>寫作結構</strong>來決定的，而不是根據程式的執行順序或其他因素。</p>
 <p>寫程式時，變數在哪裡定義，決定了它可以在哪些地方被存取。這叫做「詞法作用域」，因為變數的作用範圍是在<strong>撰寫程式</strong>的時候就確定了，而不是在程式執行時動態決定的。</p>

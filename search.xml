@@ -224,9 +224,11 @@
 <li><strong>原始型別</strong>: <code>Number</code>, <code>String</code>, <code>Boolean</code>, <code>Null</code>, <code>Undefined</code>, <code>BigInt</code>, <code>Symbol</code></li>
 <li><strong>物件型別</strong>: <code>Object</code>（物件 <code>&#123;&#125;</code>, 陣列 <code>[]</code>，函式 <code>function()</code>）</li>
 </ul>
-<p>使用 <code>typeof</code> 檢查變數型別。</p>
+<p>使用 <code>typeof</code> 檢查變數型別</p>
+<div class="highlight-container" data-rel="Javascript"><figure class="iseeu highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="keyword">let</span> a = <span class="number">10</span>;</span><br><span class="line"><span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="keyword">typeof</span> a); <span class="comment">// &quot;number&quot;</span></span><br></pre></td></tr></table></figure></div>
+
 <h2 id="宣告變數"><a href="#宣告變數" class="headerlink" title="宣告變數"></a>宣告變數</h2><p>ES6 之後，JavaScript 引入了 <code>let</code> 和 <code>const</code>，取代了早期的 <code>var</code>。</p>
-<div class="highlight-container" data-rel="Javascript"><figure class="iseeu highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="keyword">let</span> a = <span class="number">1</span>;  <span class="comment">// 可變</span></span><br><span class="line"><span class="keyword">const</span> b = <span class="number">2</span>;  <span class="comment">// 不可變</span></span><br><span class="line"><span class="keyword">var</span> c = <span class="number">3</span>;  <span class="comment">// 舊式宣告</span></span><br></pre></td></tr></table></figure></div>
+<div class="highlight-container" data-rel="Javascript"><figure class="iseeu highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="keyword">let</span> a = <span class="number">1</span>;  <span class="comment">// 可以重新賦值</span></span><br><span class="line"><span class="keyword">const</span> b = <span class="number">2</span>; <span class="comment">// 不能重新賦值</span></span><br><span class="line"><span class="keyword">var</span> c = <span class="number">3</span>;  <span class="comment">// 舊式的寫法，可以重複宣告</span></span><br></pre></td></tr></table></figure></div>
 
 <table>
 <thead>
@@ -234,7 +236,7 @@
 <th>宣告詞</th>
 <th>特性</th>
 <th>作用域</th>
-<th>提升</th>
+<th>提升 (Hoisting)</th>
 </tr>
 </thead>
 <tbody><tr>
@@ -253,22 +255,25 @@
 <td>var</td>
 <td>可重複宣告、賦值</td>
 <td>全域&#x2F;函式</td>
-<td>宣告前可使用（undefined）</td>
+<td>宣告前使用（undefined）</td>
 </tr>
 </tbody></table>
 <blockquote>
-<p><strong>區塊作用域</strong>：{} 內有效，通常是函式內部。區域變數可存取全域變數，但不影響全域變數。<br>**暫時性死區 (TDZ)**：變數在宣告前不可使用。</p>
+<p><strong>區塊作用域</strong>：{} 內有效，通常在函式內部。區塊中可存取全域變數，但不影響全域變數。<br>**暫時性死區 (TDZ)**：變數在宣告前不可使用，且程式碼會顯示錯誤。</p>
 </blockquote>
-<h3 id="宣告變數的意義"><a href="#宣告變數的意義" class="headerlink" title="宣告變數的意義"></a>宣告變數的意義</h3><p>避免全域或區域污染，減少變數名稱重複。</p>
-<blockquote>
-<p><code>var</code> 是舊式方法，允許重複宣告，容易導致錯誤。並且它會自動成為 <code>window</code> 物件的屬性，無法刪除。<br><code>const</code> 若為物件，雖無法重新賦值，但可以修改屬性。</p>
-</blockquote>
+<h3 id="宣告變數的意義"><a href="#宣告變數的意義" class="headerlink" title="宣告變數的意義"></a>宣告變數的意義</h3><p>宣告變數可以控制變數的作用範圍，避免全域變數污染（全域變數太多容易出錯）。<br>特別是用 <code>var</code> 時，幾千行程式碼後可能會讓你忘記前面已經有相同名稱的變數了，可能會不小心重複宣告，還不會顯示錯誤。</p>
+<p>另外，<code>const</code> 宣告的物件可以修改內容，因為物件是「傳參考」。也就是說，你可以更改物件內的屬性，但不能把它指向另一個物件。</p>
 <h3 id="值的傳遞"><a href="#值的傳遞" class="headerlink" title="值的傳遞"></a>值的傳遞</h3><ul>
 <li><p><strong>原始型別</strong>：傳值（複製一份）</p>
-<div class="highlight-container" data-rel="Javascript"><figure class="iseeu highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="keyword">let</span> a = <span class="number">1</span>;</span><br><span class="line"><span class="keyword">let</span> b = a;  <span class="comment">// b = 1</span></span><br><span class="line">a = <span class="number">3</span>;  <span class="comment">// b 不變</span></span><br></pre></td></tr></table></figure></div>
+<ul>
+<li>如果把一個原始型別的變數賦值給另一個變數，實際上是把那個值「複製」過去。後來即使原變數改變，複製的變數也不會受影響。 <div class="highlight-container" data-rel="Javascript"><figure class="iseeu highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="keyword">let</span> a = <span class="number">1</span>;</span><br><span class="line"><span class="keyword">let</span> b = a;</span><br><span class="line">a = <span class="number">3</span>;</span><br><span class="line"><span class="variable language_">console</span>.<span class="title function_">log</span>(b); <span class="comment">// b 還是 1</span></span><br></pre></td></tr></table></figure></div></li>
+</ul>
 </li>
 <li><p><strong>物件型別</strong>：傳址（傳記憶體位置）</p>
-<div class="highlight-container" data-rel="Javascript"><figure class="iseeu highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="keyword">let</span> c = [<span class="number">1</span>, <span class="number">2</span>, <span class="number">3</span>];</span><br><span class="line"><span class="keyword">let</span> d = c;  <span class="comment">// d 與 c 共享記憶體位置</span></span><br><span class="line">c.<span class="title function_">push</span>(<span class="number">4</span>);  <span class="comment">// d 也會改變</span></span><br></pre></td></tr></table></figure></div></li>
+<ul>
+<li>物件型別的變數傳遞的是記憶體位置（參考）。當你改變其中一個變數的內容，另一個也會同步更改，因為它們指向同一個記憶體地址。 <div class="highlight-container" data-rel="Javascript"><figure class="iseeu highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="keyword">let</span> c = [<span class="number">1</span>, <span class="number">2</span>, <span class="number">3</span>];</span><br><span class="line"><span class="keyword">let</span> d = c;</span><br><span class="line">c.<span class="title function_">push</span>(<span class="number">4</span>);</span><br><span class="line"><span class="variable language_">console</span>.<span class="title function_">log</span>(d); <span class="comment">// d 也會是 [1, 2, 3, 4]</span></span><br></pre></td></tr></table></figure></div></li>
+</ul>
+</li>
 </ul>
 <p><strong>詞法作用域</strong>（Lexical Scope）是指在程式中，<strong>變數的可見範圍</strong>是根據程式碼的<strong>寫作結構</strong>來決定的，而不是根據程式的執行順序或其他因素。</p>
 <p>寫程式時，變數在哪裡定義，決定了它可以在哪些地方被存取。這叫做「詞法作用域」，因為變數的作用範圍是在<strong>撰寫程式</strong>的時候就確定了，而不是在程式執行時動態決定的。</p>
@@ -323,44 +328,47 @@
   <entry>
     <title>jQuery基礎</title>
     <url>/hexo-web/2024/08/14/%5BjQuery%5D%E5%9F%BA%E7%A4%8E%E5%85%A5%E9%96%80/</url>
-    <content><![CDATA[<h2 id="jQuery-簡介"><a href="#jQuery-簡介" class="headerlink" title="jQuery 簡介"></a>jQuery 簡介</h2><p>儘管現代框架如 React、Vue.js 等已經興起，許多舊專案仍使用 jQuery，因此基礎語法依然值得理解。部分小型專案也可能使用它，但它存在技術債問題，暫不會完全被替換。</p>
-<h3 id="jQuery-的替代與挑戰"><a href="#jQuery-的替代與挑戰" class="headerlink" title="jQuery 的替代與挑戰"></a>jQuery 的替代與挑戰</h3><ol>
-<li><strong>原生 JavaScript 的進步</strong>：隨著語言的演化，<code>querySelector</code>、<code>fetch</code> 等原生 API 更強大，逐步取代 jQuery 的常見功能。</li>
-<li><strong>現代框架的興起</strong>：React、Vue、Angular 等框架提供了組件化開發和狀態管理，適合現代應用。而 jQuery 側重 DOM 操作，難應對複雜需求。</li>
-<li><strong>性能問題</strong>：在處理大量 DOM 操作時，jQuery 性能不如虛擬 DOM 技術。</li>
-<li><strong>社群轉移</strong>：現代框架社群和工具支持更強，而 jQuery 的相關資源逐漸減少。</li>
+    <content><![CDATA[<h2 id="jQuery-簡介"><a href="#jQuery-簡介" class="headerlink" title="jQuery 簡介"></a>jQuery 簡介</h2><p>雖然現在 React、Vue.js 等框架非常流行，但很多舊專案還是用 jQuery，因為它有技術債的問題，可能短期內不會完全被淘汰，所以基礎語法還是得懂。</p>
+<h3 id="jQuery-為什麼沒那麼流行了？"><a href="#jQuery-為什麼沒那麼流行了？" class="headerlink" title="jQuery 為什麼沒那麼流行了？"></a>jQuery 為什麼沒那麼流行了？</h3><ol>
+<li><strong>原生 JavaScript 加強</strong>：隨著語言進化，像 <code>querySelector</code> 和 <code>fetch</code> 這些原生 API 變得好用，很多 jQuery 功能都可以被取代。</li>
+<li><strong>現代框架的崛起</strong>：React、Vue、Angular 這些框架不只讓開發結構化，還提供了更好的狀態管理，而 jQuery 更適合傳統的 DOM 操作，面對現代應用的複雜需求就比較吃力。</li>
+<li><strong>效能問題</strong>：當你操作大量 DOM 的時候，jQuery 的效能可能不如現代框架用的虛擬 DOM 技術。</li>
+<li><strong>社群趨勢</strong>：開發者和工具都轉向支持現代框架，jQuery 的資源和支持逐漸減少。</li>
 </ol>
-<h3 id="jQuery-的導入"><a href="#jQuery-的導入" class="headerlink" title="jQuery 的導入"></a>jQuery 的導入</h3><p>可以使用 Google Hosted Libraries 的 CDN 來加速載入：</p>
+<h3 id="如何在專案中導入-jQuery？"><a href="#如何在專案中導入-jQuery？" class="headerlink" title="如何在專案中導入 jQuery？"></a>如何在專案中導入 jQuery？</h3><p>可以用 Google Hosted Libraries 的 CDN 來加速載入：</p>
+<blockquote>
+<p>如果使用與google同樣版本的CDN，那麼使用者在開啟你的網頁之前，如果開過google的網頁<br>瀏覽器會自動暫存快取，使用者的頁面就不需重新載入！</p>
+</blockquote>
 <div class="highlight-container" data-rel="Html"><figure class="iseeu highlight html"><table><tr><td class="code"><pre><span class="line"><span class="comment">&lt;!-- 官網 CDN --&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">script</span> <span class="attr">src</span>=<span class="string">&quot;https://code.jquery.com/jquery-2.1.4.min.js&quot;</span>&gt;</span><span class="tag">&lt;/<span class="name">script</span>&gt;</span></span><br><span class="line"><span class="comment">&lt;!-- Google CDN --&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">script</span> <span class="attr">src</span>=<span class="string">&quot;https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js&quot;</span>&gt;</span><span class="tag">&lt;/<span class="name">script</span>&gt;</span></span><br></pre></td></tr></table></figure></div>
-<p><code>min.js</code> 是壓縮版，若需修改可下載非壓縮版。</p>
-<h3 id="基本用法"><a href="#基本用法" class="headerlink" title="基本用法"></a>基本用法</h3><p>使用 <code>$()</code> 呼叫 jQuery，通常在 <code>&lt;body&gt;</code> 最下方插入，確保 jQuery 先載入：</p>
-<div class="highlight-container" data-rel="Javascript"><figure class="iseeu highlight javascript"><table><tr><td class="code"><pre><span class="line">$(<span class="string">&quot;h1&quot;</span>).<span class="title function_">hide</span>();  <span class="comment">// 選擇器 + 功能（鏈式操作）</span></span><br></pre></td></tr></table></figure></div>
-<p><code>$</code> 符號相當於 <code>document.querySelector</code> 與 <code>document.querySelectorAll</code>。</p>
-<p>若放在 <code>&lt;head&gt;</code>，需等待 DOM 載入完成：</p>
+<p><code>min.js</code> 是壓縮版的 jQuery 檔案，適合上線用。如果想改內容，可以下載一般版本來使用。</p>
+<h3 id="基本用法"><a href="#基本用法" class="headerlink" title="基本用法"></a>基本用法</h3><p>使用 <code>$()</code> 來呼叫 jQuery，通常我們會把它放在 <code>&lt;body&gt;</code> 最下方，這樣才能確保 jQuery 先載入後再執行：</p>
+<div class="highlight-container" data-rel="Javascript"><figure class="iseeu highlight javascript"><table><tr><td class="code"><pre><span class="line">$(<span class="string">&quot;h1&quot;</span>).<span class="title function_">hide</span>();  <span class="comment">// 選擇器 + 功能（可以接鏈式操作）</span></span><br></pre></td></tr></table></figure></div>
+<p><code>$</code> 符號其實就等同於 <code>document.querySelector</code> 和 <code>document.querySelectorAll</code>。</p>
+<p>如果你放在 <code>&lt;head&gt;</code> 裡，就需要加上等待 DOM 載入的程式碼：</p>
 <div class="highlight-container" data-rel="Javascript"><figure class="iseeu highlight javascript"><table><tr><td class="code"><pre><span class="line">$(<span class="variable language_">document</span>).<span class="title function_">ready</span>(<span class="keyword">function</span>(<span class="params"></span>) &#123;</span><br><span class="line">    $(<span class="string">&quot;h1&quot;</span>).<span class="title function_">hide</span>();</span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure></div>
 
-<h3 id="代碼對比"><a href="#代碼對比" class="headerlink" title="代碼對比"></a>代碼對比</h3><p>範例：設定多個按鈕點擊時變更 CSS 樣式。</p>
+<h3 id="程式碼對比"><a href="#程式碼對比" class="headerlink" title="程式碼對比"></a>程式碼對比</h3><p>範例：如何設定多個按鈕點擊後變更 CSS 樣式</p>
 <div class="highlight-container" data-rel="Javascript"><figure class="iseeu highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="comment">// 原生 JavaScript 寫法</span></span><br><span class="line"><span class="keyword">for</span> (<span class="keyword">var</span> i = <span class="number">0</span>; i &lt; <span class="number">5</span>; i++) &#123;</span><br><span class="line">    <span class="variable language_">document</span>.<span class="title function_">querySelectorAll</span>(<span class="string">&#x27;button&#x27;</span>)[i].<span class="title function_">addEventListener</span>(<span class="string">&#x27;click&#x27;</span>, <span class="keyword">function</span>(<span class="params"></span>) &#123;</span><br><span class="line">        <span class="variable language_">document</span>.<span class="title function_">querySelector</span>(<span class="string">&#x27;h1&#x27;</span>).<span class="property">style</span>.<span class="property">color</span> = <span class="string">&#x27;purple&#x27;</span>;</span><br><span class="line">    &#125;);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// jQuery 寫法</span></span><br><span class="line">$(<span class="string">&#x27;button&#x27;</span>).<span class="title function_">click</span>(<span class="keyword">function</span>(<span class="params"></span>) &#123;</span><br><span class="line">    $(<span class="string">&#x27;h1&#x27;</span>).<span class="title function_">css</span>(<span class="string">&#x27;color&#x27;</span>, <span class="string">&#x27;purple&#x27;</span>);</span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure></div>
 
 <h3 id="常用方法"><a href="#常用方法" class="headerlink" title="常用方法"></a>常用方法</h3><ul>
-<li><strong>Effect</strong>：<ul>
-<li><code>.toggle(2000)</code>：2 秒開啟&#x2F;收合</li>
+<li>**特效 (Effect)**：<ul>
+<li><code>.toggle(2000)</code>：2 秒內開啟&#x2F;收合</li>
 <li><code>.fadeToggle()</code>：漸變隱藏&#x2F;出現</li>
 <li><code>.slideToggle()</code>：折疊開合</li>
-<li><code>.animate(&#123;CSS&#125;)</code>：使用具數值的 CSS 動畫</li>
+<li><code>.animate(&#123;CSS&#125;)</code>：針對有數值的 CSS 做動畫</li>
 </ul>
 </li>
 <li><strong>CSS&#x2F;屬性操作</strong>：<ul>
-<li><code>.addClass(&#39;className&#39;)</code>：新增樣式</li>
+<li><code>.addClass(&#39;className&#39;)</code>：加上樣式</li>
 <li><code>.removeClass(&#39;className&#39;)</code>：移除樣式</li>
 <li><code>.toggleClass()</code>：切換樣式</li>
 <li><code>.attr(&#39;href&#39;, &#39;url&#39;)</code>：修改屬性</li>
 </ul>
 </li>
 <li><strong>DOM 操作</strong>：<ul>
-<li><code>.html(&#39;&lt;tag&gt;&#39;)</code>：動態載入 HTML</li>
-<li><code>.before(&#39;&lt;tag&gt;&#39;)</code> &#x2F; <code>.after(&#39;&lt;tag&gt;&#39;)</code>：前後插入元素</li>
-<li><code>.prepend(&#39;&lt;tag&gt;&#39;)</code> &#x2F; <code>.append(&#39;&lt;tag&gt;&#39;)</code>：最前&#x2F;末端插入元素</li>
+<li><code>.html(&#39;&lt;tag&gt;&#39;)</code>：動態加載 HTML</li>
+<li><code>.before(&#39;&lt;tag&gt;&#39;)</code> &#x2F; <code>.after(&#39;&lt;tag&gt;&#39;)</code>：在選取的元素前後插入</li>
+<li><code>.prepend(&#39;&lt;tag&gt;&#39;)</code> &#x2F; <code>.append(&#39;&lt;tag&gt;&#39;)</code>：在選取的元素最前&#x2F;末端插入</li>
 <li><code>.remove()</code>：移除 DOM 元素</li>
 </ul>
 </li>
