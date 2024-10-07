@@ -13,23 +13,23 @@
     
     <!--- Seo Part-->
     
-    <link rel="canonical" href="https://maggie19921001.github.io/hexo-web/2024/08/07/4_tdx-api-串接-2024/"/>
+    <link rel="canonical" href="https://maggie19921001.github.io/hexo-web/2024/08/14/[css]sass與scss-概念與設計模式/"/>
     <meta name="robots" content="index,follow">
     <meta name="googlebot" content="index,follow">
     <meta name="revisit-after" content="1 days">
     
-        <meta name="description" content="初次使用TDX 的API資料網頁中有提供範例程式碼 在2024&#x2F;6&#x2F;1開始實施收費無付費的基礎會員官網上是寫可存取5次&#x2F;分&#x2F;金鑰但我怎麼試綁API就是失敗，只有未申請會員的上限20次 ＱＱ最基本的銅級會員每月最低200元，基本個人使用算是滿夠用的(費用從每月一號開始計算，不足一個月會自動扣除未開通天數的費用) 初始設定官方Sample使用jQuery寫初始設">
+        <meta name="description" content="SASS和SCSS分別是(Syntactically Awesome Style Sheets)和(Sassy CSS)的縮寫就是一看就是超讚的樣式和好潮的CSS，非常的直觀XD SASS和SCSS都是SASS預處理器的語法，能夠有系統的撰寫及管理CSS，提高開發效率和代碼可維護性  語法用軟體編譯成可被瀏覽器讀取的CSS格式  SASS使用縮排來區分物件，相對比較簡潔對，但對新手來說比較容易混亂">
 <meta property="og:type" content="article">
-<meta property="og:title" content="TDX API 串接(2024)">
-<meta property="og:url" content="https://maggie19921001.github.io/hexo-web/2024/08/07/4_TDX-API-%E4%B8%B2%E6%8E%A5-2024/index.html">
+<meta property="og:title" content="Sass&#x2F;Scss 概念與設計模式">
+<meta property="og:url" content="https://maggie19921001.github.io/hexo-web/2024/08/14/[CSS]Sass%E8%88%87Scss-%E6%A6%82%E5%BF%B5%E8%88%87%E8%A8%AD%E8%A8%88%E6%A8%A1%E5%BC%8F/index.html">
 <meta property="og:site_name" content="YuHuei&#39;s blog">
-<meta property="og:description" content="初次使用TDX 的API資料網頁中有提供範例程式碼 在2024&#x2F;6&#x2F;1開始實施收費無付費的基礎會員官網上是寫可存取5次&#x2F;分&#x2F;金鑰但我怎麼試綁API就是失敗，只有未申請會員的上限20次 ＱＱ最基本的銅級會員每月最低200元，基本個人使用算是滿夠用的(費用從每月一號開始計算，不足一個月會自動扣除未開通天數的費用) 初始設定官方Sample使用jQuery寫初始設">
+<meta property="og:description" content="SASS和SCSS分別是(Syntactically Awesome Style Sheets)和(Sassy CSS)的縮寫就是一看就是超讚的樣式和好潮的CSS，非常的直觀XD SASS和SCSS都是SASS預處理器的語法，能夠有系統的撰寫及管理CSS，提高開發效率和代碼可維護性  語法用軟體編譯成可被瀏覽器讀取的CSS格式  SASS使用縮排來區分物件，相對比較簡潔對，但對新手來說比較容易混亂">
 <meta property="og:locale" content="en_US">
-<meta property="article:published_time" content="2024-08-07T04:10:35.000Z">
-<meta property="article:modified_time" content="2024-08-14T05:35:58.898Z">
+<meta property="article:published_time" content="2024-08-14T05:37:25.000Z">
+<meta property="article:modified_time" content="2024-08-15T05:41:53.205Z">
 <meta property="article:author" content="Yu Huei">
-<meta property="article:tag" content="API">
-<meta property="article:tag" content="JavaScript">
+<meta property="article:tag" content="CSS">
+<meta property="article:tag" content="Sass">
 <meta name="twitter:card" content="summary">
     
     
@@ -42,7 +42,7 @@
     
     <title>
         
-            TDX API 串接(2024) -
+            Sass/Scss 概念與設計模式 -
         
         YuHuei
     </title>
@@ -495,7 +495,7 @@
         <div class="label text-third-text-color text-sm">Categories</div>
     </a>
     <a class="item tag-count-item flex flex-col justify-center items-center w-20" href="/hexo-web/archives">
-        <div class="number text-2xl sm:text-xl text-second-text-color font-semibold">10</div>
+        <div class="number text-2xl sm:text-xl text-second-text-color font-semibold">11</div>
         <div class="label text-third-text-color text-sm">Posts</div>
     </a>
 </div>
@@ -521,7 +521,7 @@
         <div class="article-title relative w-full">
             
                 <div class="w-full flex items-center pt-6 justify-start">
-                    <h1 class="article-title-regular text-second-text-color tracking-tight text-4xl md:text-6xl font-semibold px-2 sm:px-6 md:px-8 py-3">TDX API 串接(2024)</h1>
+                    <h1 class="article-title-regular text-second-text-color tracking-tight text-4xl md:text-6xl font-semibold px-2 sm:px-6 md:px-8 py-3">Sass/Scss 概念與設計模式</h1>
                 </div>
             
             </div>
@@ -542,15 +542,15 @@
                         <div class="article-meta-info">
     <span class="article-date article-meta-item">
         <i class="fa-regular fa-pen-fancy"></i>&nbsp;
-        <span class="desktop">2024-08-07 12:10:35</span>
-        <span class="mobile">2024-08-07 12:10:35</span>
+        <span class="desktop">2024-08-14 13:37:25</span>
+        <span class="mobile">2024-08-14 13:37:25</span>
         <span class="hover-info">Created</span>
     </span>
     
         <span class="article-date article-meta-item">
             <i class="fa-regular fa-wrench"></i>&nbsp;
-            <span class="desktop">2024-08-14 13:35:58</span>
-            <span class="mobile">2024-08-14 13:35:58</span>
+            <span class="desktop">2024-08-15 13:41:53</span>
+            <span class="mobile">2024-08-15 13:41:53</span>
             <span class="hover-info">Updated</span>
         </span>
     
@@ -562,11 +562,11 @@
             <ul>
                 
                     <li>
-                        <a href="/hexo-web/tags/API/">API</a>&nbsp;
+                        <a href="/hexo-web/tags/CSS/">CSS</a>&nbsp;
                     </li>
                 
                     <li>
-                        | <a href="/hexo-web/tags/JavaScript/">JavaScript</a>&nbsp;
+                        | <a href="/hexo-web/tags/Sass/">Sass</a>&nbsp;
                     </li>
                 
             </ul>
@@ -588,19 +588,58 @@
 
 
         <div class="article-content markdown-body px-2 sm:px-6 md:px-8 pb-8">
-            <p>初次使用<a class="link"   target="_blank" rel="noopener" href="https://tdx.transportdata.tw/" >TDX <i class="fa-regular fa-arrow-up-right-from-square fa-sm"></i></a>的API資料<br>網頁中有提供<a class="link"   target="_blank" rel="noopener" href="https://github.com/tdxmotc/SampleCode" >範例程式碼 <i class="fa-regular fa-arrow-up-right-from-square fa-sm"></i></a><br>在2024&#x2F;6&#x2F;1開始實施收費<br>無付費的基礎會員官網上是寫可存取5次&#x2F;分&#x2F;金鑰<br>但我怎麼試綁API就是失敗，只有未申請會員的上限20次 ＱＱ<br>最基本的銅級會員每月最低200元，基本個人使用算是滿夠用的<br>(費用從每月一號開始計算，不足一個月會自動扣除未開通天數的費用)</p>
-<h3 id="初始設定"><a href="#初始設定" class="headerlink" title="初始設定"></a>初始設定</h3><p>官方Sample使用jQuery寫初始設定，要先在html中嵌入<code>jQuery CDN</code>再進行JS<br>也必須要在html中加入Sample中的<code>取得憑證資料及API資料</code><br>這裡如果沒有加入也是無法正常使用，我自己是加入後用CSS隱藏起來</p>
-<div class="highlight-container" data-rel="Html"><figure class="iseeu highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">h3</span>&gt;</span>取得憑證資料:<span class="tag">&lt;/<span class="name">h3</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">div</span> <span class="attr">id</span>=<span class="string">&quot;accesstoken&quot;</span> <span class="attr">class</span>=<span class="string">&quot;align-text-bottom&quot;</span>&gt;</span>        </span><br><span class="line"><span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line"></span><br><span class="line"><span class="tag">&lt;<span class="name">h3</span>&gt;</span>api 資料:<span class="tag">&lt;/<span class="name">h3</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">div</span> <span class="attr">id</span>=<span class="string">&quot;apireponse&quot;</span> <span class="attr">class</span>=<span class="string">&quot;align-text-bottom&quot;</span>&gt;</span>        </span><br><span class="line"><span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line"></span><br><span class="line"><span class="tag">&lt;<span class="name">script</span> <span class="attr">type</span>=<span class="string">&quot;text/javascript&quot;</span> <span class="attr">src</span>=<span class="string">&quot;https://code.jquery.com/jquery-2.1.4.min.js&quot;</span>&gt;</span><span class="tag">&lt;/<span class="name">script</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">script</span> <span class="attr">type</span>=<span class="string">&quot;text/javascript&quot;</span> <span class="attr">src</span>=<span class="string">&quot;Sample.js&quot;</span>&gt;</span><span class="tag">&lt;/<span class="name">script</span>&gt;</span></span><br></pre></td></tr></table></figure></div>
-
-<div class="highlight-container" data-rel="Javascript"><figure class="iseeu highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">$(<span class="keyword">function</span> (<span class="params"></span>) &#123;</span><br><span class="line">    <span class="title class_">GetAuthorizationHeader</span>();</span><br><span class="line">    <span class="title class_">GetApiResponse</span>();    </span><br><span class="line">    <span class="title function_">getPhoto</span>();</span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure></div>
-<h3 id="取得授權"><a href="#取得授權" class="headerlink" title="取得授權"></a>取得授權</h3><p>申請完帳號後，會員中心的資料服務可以找到<code>API金鑰</code>填入</p>
-<div class="highlight-container" data-rel="Javascript"><figure class="iseeu highlight javascript"><figcaption><span>+</span></figcaption><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">function</span> <span class="title function_">GetAuthorizationHeader</span>(<span class="params"></span>) &#123;    </span><br><span class="line">    <span class="keyword">const</span> parameter = &#123;</span><br><span class="line">        <span class="attr">grant_type</span>:<span class="string">&quot;client_credentials&quot;</span>,</span><br><span class="line">        <span class="attr">client_id</span>: <span class="string">&quot;填入授權ID&quot;</span>,</span><br><span class="line">        <span class="attr">client_secret</span>: <span class="string">&quot;填入授權金鑰&quot;</span></span><br><span class="line">    &#125;;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">let</span> auth_url = <span class="string">&quot;https://tdx.transportdata.tw/auth/realms/TDXConnect/protocol/openid-connect/token&quot;</span>;</span><br><span class="line">        </span><br><span class="line">    $.<span class="title function_">ajax</span>(&#123;</span><br><span class="line">        <span class="attr">type</span>: <span class="string">&quot;POST&quot;</span>,</span><br><span class="line">        <span class="attr">url</span>: auth_url,</span><br><span class="line">        <span class="attr">headers</span>: &#123;</span><br><span class="line">                </span><br><span class="line">              &#125;,  </span><br><span class="line">        <span class="attr">crossDomain</span>:<span class="literal">true</span>,</span><br><span class="line">        <span class="attr">dataType</span>:<span class="string">&#x27;JSON&#x27;</span>,                </span><br><span class="line">        <span class="attr">data</span>: parameter,</span><br><span class="line">        <span class="attr">async</span>: <span class="literal">false</span>,       </span><br><span class="line">        <span class="attr">success</span>: <span class="keyword">function</span>(<span class="params">data</span>)&#123;            </span><br><span class="line">            $(<span class="string">&quot;#accesstoken&quot;</span>).<span class="title function_">text</span>(<span class="title class_">JSON</span>.<span class="title function_">stringify</span>(data));                            </span><br><span class="line">        &#125;,</span><br><span class="line">        <span class="attr">error</span>: <span class="keyword">function</span> (<span class="params">xhr, textStatus, thrownError</span>) &#123; </span><br><span class="line">        &#125;</span><br><span class="line">    &#125;);          </span><br><span class="line">&#125;</span><br><span class="line"></span><br></pre></td></tr></table></figure></div>
-<h3 id="抓取資料"><a href="#抓取資料" class="headerlink" title="抓取資料"></a>抓取資料</h3><p>填入API網址後<br>在<code>success</code>中取得Data陣列就可以使用了！</p>
-<div class="highlight-container" data-rel="Javascript"><figure class="iseeu highlight javascript"><figcaption><span>+</span></figcaption><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">function</span> <span class="title function_">GetApiResponse</span>(<span class="params"></span>)&#123;    </span><br><span class="line">    <span class="keyword">let</span> accesstokenStr = $(<span class="string">&quot;#accesstoken&quot;</span>).<span class="title function_">text</span>();    </span><br><span class="line">    <span class="keyword">let</span> accesstoken = <span class="title class_">JSON</span>.<span class="title function_">parse</span>(accesstokenStr);    </span><br><span class="line"></span><br><span class="line">    <span class="keyword">if</span>(accesstoken !=<span class="literal">undefined</span>)&#123;</span><br><span class="line">        $.<span class="title function_">ajax</span>(&#123;</span><br><span class="line">            <span class="attr">type</span>: <span class="string">&#x27;GET&#x27;</span>,</span><br><span class="line">            <span class="attr">url</span>: <span class="string">&#x27;https://tdx.transportdata.tw/api/basic/v2/Rail/TRA/LiveTrainDelay?$top=30&amp;$format=JSON&#x27;</span>,             </span><br><span class="line">            <span class="attr">headers</span>: &#123;</span><br><span class="line">                <span class="string">&quot;authorization&quot;</span>: <span class="string">&quot;Bearer &quot;</span> + accesstoken.<span class="property">access_token</span>,</span><br><span class="line">              &#125;,            </span><br><span class="line">            <span class="attr">async</span>: <span class="literal">false</span>,</span><br><span class="line">            <span class="attr">success</span>: <span class="keyword">function</span> (<span class="params">Data</span>) &#123;</span><br><span class="line">                <span class="comment">// $(&#x27;#apireponse&#x27;).text(JSON.stringify(Data));                </span></span><br><span class="line">                <span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="string">&#x27;Data&#x27;</span>, <span class="title class_">Data</span>);</span><br><span class="line">            &#125;,</span><br><span class="line">            <span class="attr">error</span>: <span class="keyword">function</span> (<span class="params">xhr, textStatus, thrownError</span>) &#123;</span><br><span class="line">                <span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="string">&#x27;errorStatus:&#x27;</span>,textStatus);</span><br><span class="line">                <span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="string">&#x27;Error:&#x27;</span>,thrownError);</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></div>
-
+            <p>SASS和SCSS分別是(Syntactically Awesome Style Sheets)和(Sassy CSS)的縮寫<br>就是一看就是超讚的樣式和好潮的CSS，非常的直觀XD</p>
+<p>SASS和SCSS都是<code>SASS預處理器</code>的語法，能夠有系統的撰寫及管理CSS，提高開發效率和代碼可維護性</p>
 <blockquote>
-<p>Note:<br>如果要將 js 運行在伺服器，可在ajax-get-headers中額外加入 ‘Accept-Encoding’: ‘br,gzip’，要求壓縮以減少網路傳輸資料量<br>(原先的Sample中有寫，但測試時會一直出現錯誤)</p>
+<p>語法用軟體編譯成可被瀏覽器讀取的CSS格式</p>
 </blockquote>
+<p>SASS使用縮排來區分物件，相對比較簡潔對，但對新手來說比較容易混亂，且撰寫上和CSS語法有些不同<br>所以這邊主要就介紹SCSS的用法</p>
+<h3 id="SCSS基本介紹"><a href="#SCSS基本介紹" class="headerlink" title="SCSS基本介紹"></a>SCSS基本介紹</h3><p>SCSS文件使用<code>.scss</code>副檔名<br>SCSS是CSS的超集，代表SCSS是CSS的延伸，除了有更多的擴展功能，而開發者也可以將現有的CSS代碼轉換為SCSS。<br>SCSS支持變數、嵌套、混合和繼承</p>
+<h3 id="撰寫範例"><a href="#撰寫範例" class="headerlink" title="撰寫範例"></a>撰寫範例</h3><p>可以一層層的寫，不用一個個抓取元素</p>
+<div class="highlight-container" data-rel="Scss"><figure class="iseeu highlight scss"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="selector-class">.header</span>&#123;</span><br><span class="line">    <span class="selector-tag">ul</span>&#123; <span class="selector-tag">ul</span>的設定;</span><br><span class="line">        <span class="selector-tag">li</span>&#123; <span class="selector-tag">li</span>的設定;</span><br><span class="line"></span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></div>
+<p>通用的文字尺寸、顏色就可以使用變數</p>
+<div class="highlight-container" data-rel="Scss"><figure class="iseeu highlight scss"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/* 用$開頭設定scss變數 */</span></span><br><span class="line"><span class="variable">$primary</span>: red;</span><br><span class="line"></span><br><span class="line"><span class="comment">/* 使用scss設定的變數 */</span></span><br><span class="line"><span class="selector-tag">body</span>&#123;</span><br><span class="line"> <span class="attribute">background-color</span>: <span class="variable">$primary</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></div>
+<p>內建基本調色效果(darkken&#x2F;lighten)</p>
+<div class="highlight-container" data-rel="Scss"><figure class="iseeu highlight scss"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="selector-tag">body</span><span class="selector-pseudo">:hover</span>&#123;</span><br><span class="line">    <span class="attribute">background-color</span>: darken (<span class="variable">$primary</span>,<span class="number">10%</span>);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></div>
+
+<h3 id="Live-Sass-Compiler"><a href="#Live-Sass-Compiler" class="headerlink" title="Live Sass Compiler"></a>Live Sass Compiler</h3><p>Live Sass Compiler 是 VS code 中的延伸模組<br>可用來編譯並即時更新CSS檔案<br>安裝後右下角會出現 <code>Watch Sass</code> 眼睛圖示按鈕<br>按下後會呈現 <code>Watching...</code>，在這個狀態下存檔，就會自動編譯CSS檔案了</p>
+<h3 id="建立SASS檔案基本流程"><a href="#建立SASS檔案基本流程" class="headerlink" title="建立SASS檔案基本流程"></a>建立SASS檔案基本流程</h3><ol>
+<li>建立 all.scss 作為主要編譯css檔案</li>
+<li>建立其他(元件) _variable.scss 放置變數<br>         _reset.scss    初始化CSS<br>         _main.scss     主要樣式<br>         _….scss      其他第三方插件</li>
+<li>匯入 all.css <code>@import&quot;variable&quot;</code> <code>@import&quot;reset&quot;</code> <code>@import&quot;main&quot;</code>等等</li>
+<li>編譯轉成 all.css<blockquote>
+<p>檔案名開頭加底線的檔案不會被編譯<br>檔案合併成一支CSS也能減少網路請求次數</p>
+</blockquote>
+</li>
+</ol>
+<h4 id="CSS-reset"><a href="#CSS-reset" class="headerlink" title="CSS reset"></a>CSS reset</h4><p>有CSS reset的好處是可以將各瀏覽器的預設樣式通一</p>
+<ul>
+<li><code>meyerweb</code> 全部重置</li>
+<li><code>Normalize</code> 保留部分樣式(cmd+S下載)<blockquote>
+<p>下載的檔案如為CSS檔，可直接改副檔名SCSS</p>
+</blockquote>
+</li>
+</ul>
+<h3 id="設計模式"><a href="#設計模式" class="headerlink" title="設計模式"></a>設計模式</h3><p>有許多前人規劃出不同的SASS系統架構，我們可以使用或參考以符合自身專案需求<br>而其中SMACSS、OOCSS、BEM、RSCSS是比較常見的設計模式</p>
+<h4 id="SMACSS"><a href="#SMACSS" class="headerlink" title="SMACSS"></a>SMACSS</h4><p>SMACSS是Jonathan Snook所發表的一個CSS&#x2F;SASS的設計模式<br>SMACSS 全名是 「Scalable and Modular Architecture for CSS」，意思是可擴展與模組化的設計模式</p>
+<p>它將 CSS 分為 Base、Layout、Module、State、Theme 五個層級：</p>
+<ul>
+<li>Base：全站設定，用來定義 HTML 元素的基本樣式，例如 a, h1 - h6 …</li>
+<li>Layout：用來定義網頁的版面架構，如 .container、表頭表尾、格線系統等等</li>
+<li>Module：用來定義獨立、可重複使用的元件，例如 .btn、.nav。</li>
+<li>State：用來定義元素的狀態，例如 .active、.disabled。</li>
+<li>Theme：用來定義元素的顏色、字體等主題，例如 .theme-dark、.theme-light。</li>
+</ul>
+<blockquote>
+<p>也可參考<a class="link"   target="_blank" rel="noopener" href="https://purecss.io/" >Pure.CSS <i class="fa-regular fa-arrow-up-right-from-square fa-sm"></i></a>的base檔案(由yahoo開發)<br>或下載Customize版本來使用</p>
+</blockquote>
+<h4 id="OOCSS"><a href="#OOCSS" class="headerlink" title="OOCSS"></a>OOCSS</h4><p>OOCSS 全名是 「Object Oriented CSS」，意思是「物件導向 CSS」<br>OOCSS 最主要代表的框架就是 Bootstrap。</p>
+<p>而它的主要是兩個概念是：</p>
+<ul>
+<li>結構與樣式分離 (Separate structure and skin)</li>
+<li>容器與內容分離 (Separate container and content)</li>
+</ul>
+<p>Reference : <a class="link"   target="_blank" rel="noopener" href="https://im1010ioio.hashnode.dev/oocss-smacss-bem-rscss" >Css 設計方法與命名建議：oocss、smacss、bem、rscss <i class="fa-regular fa-arrow-up-right-from-square fa-sm"></i></a></p>
 
         </div>
 
@@ -610,11 +649,11 @@
             <ul class="post-tags-box text-lg mt-1.5 flex-wrap justify-center flex md:hidden">
                 
                     <li class="tag-item mx-0.5">
-                        <a href="/hexo-web/tags/API/">#API</a>&nbsp;
+                        <a href="/hexo-web/tags/CSS/">#CSS</a>&nbsp;
                     </li>
                 
                     <li class="tag-item mx-0.5">
-                        <a href="/hexo-web/tags/JavaScript/">#JavaScript</a>&nbsp;
+                        <a href="/hexo-web/tags/Sass/">#Sass</a>&nbsp;
                     </li>
                 
             </ul>
@@ -628,13 +667,13 @@
                     <div class="article-prev border-border-color shadow-redefine-flat shadow-shadow-color-2 rounded-medium px-4 py-2 hover:shadow-redefine-flat-hover hover:shadow-shadow-color-2">
                         <a class="prev"
                         rel="prev"
-                        href="/hexo-web/2024/08/07/3_API-%E9%97%9C%E9%8D%B5%E5%AD%97%E6%90%9C%E5%B0%8B%EF%BC%8B%E6%90%9C%E5%B0%8B%E7%B5%90%E6%9E%9C%E6%8F%9B%E9%A0%81/"
+                        href="/hexo-web/2024/10/07/%5BJavaScript%5D%E5%9E%8B%E5%88%A5%E5%B0%8F%E7%B4%B0%E7%AF%80/"
                         >
                             <span class="left arrow-icon flex justify-center items-center">
                                 <i class="fa-solid fa-chevron-left"></i>
                             </span>
                             <span class="title flex justify-center items-center">
-                                <span class="post-nav-title-item">API 關鍵字搜尋＋搜尋結果換頁</span>
+                                <span class="post-nav-title-item">JavaScript型別小細節</span>
                                 <span class="post-nav-item">Prev posts</span>
                             </span>
                         </a>
@@ -644,10 +683,10 @@
                     <div class="article-next border-border-color shadow-redefine-flat shadow-shadow-color-2 rounded-medium px-4 py-2 hover:shadow-redefine-flat-hover hover:shadow-shadow-color-2">
                         <a class="next"
                         rel="next"
-                        href="/hexo-web/2024/05/30/2_Hexo%E4%B8%BB%E9%A1%8C%E8%A8%AD%E7%BD%AE/"
+                        href="/hexo-web/2024/08/14/%5BOther%5D%E6%8F%92%E4%BB%B6%E7%B8%BD%E9%9B%86/"
                         >
                             <span class="title flex justify-center items-center">
-                                <span class="post-nav-title-item">Hexo設置/主題/更新文章</span>
+                                <span class="post-nav-title-item">插件總集</span>
                                 <span class="post-nav-item">Next posts</span>
                             </span>
                             <span class="right arrow-icon flex justify-center items-center">
@@ -711,8 +750,8 @@
             <div class="post-toc-wrap">
     <div class="post-toc">
         <div class="toc-title">On this page</div>
-        <div class="page-title">TDX API 串接(2024)</div>
-        <ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%88%9D%E5%A7%8B%E8%A8%AD%E5%AE%9A"><span class="nav-text">初始設定</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%8F%96%E5%BE%97%E6%8E%88%E6%AC%8A"><span class="nav-text">取得授權</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%8A%93%E5%8F%96%E8%B3%87%E6%96%99"><span class="nav-text">抓取資料</span></a></li></ol>
+        <div class="page-title">Sass/Scss 概念與設計模式</div>
+        <ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#SCSS%E5%9F%BA%E6%9C%AC%E4%BB%8B%E7%B4%B9"><span class="nav-text">SCSS基本介紹</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%92%B0%E5%AF%AB%E7%AF%84%E4%BE%8B"><span class="nav-text">撰寫範例</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Live-Sass-Compiler"><span class="nav-text">Live Sass Compiler</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%BB%BA%E7%AB%8BSASS%E6%AA%94%E6%A1%88%E5%9F%BA%E6%9C%AC%E6%B5%81%E7%A8%8B"><span class="nav-text">建立SASS檔案基本流程</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E8%A8%AD%E8%A8%88%E6%A8%A1%E5%BC%8F"><span class="nav-text">設計模式</span></a></li></ol>
 
     </div>
 </div>
