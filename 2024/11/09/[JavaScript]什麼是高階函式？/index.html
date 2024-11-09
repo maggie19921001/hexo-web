@@ -13,20 +13,20 @@
     
     <!--- Seo Part-->
     
-    <link rel="canonical" href="https://maggie19921001.github.io/hexo-web/2024/08/08/[javascript]可選串連運算子/"/>
+    <link rel="canonical" href="https://maggie19921001.github.io/hexo-web/2024/11/09/[javascript]什麼是高階函式？/"/>
     <meta name="robots" content="index,follow">
     <meta name="googlebot" content="index,follow">
     <meta name="revisit-after" content="1 days">
     
-        <meta name="description" content="一般來說，在取物件的值時會使用. 如下程式碼若沒有加上問號，會顯示：Error: Cannot read properties of undefined (reading &#39;name&#39;)以及Error: Unexpected token &#39;(&#39; 寫上?.後就會變成只顯示undefined 12345678910111213const adventurer &#x3D; &amp;#1">
+        <meta name="description" content="一級函式？一級函式（First-Class Function）是指函式在語言中被視為「一級公民」的特性。在 JavaScript 等支持一級函式的語言中，函式可以像變數一樣被使用和操作，例如：  將函式賦值給變數：函式可以直接被賦值給一個變數，讓變數指向這個函式。 1234const greet &#x3D; function(name) &#123;  return &#96;Hello, $&#123;name">
 <meta property="og:type" content="article">
-<meta property="og:title" content="JavaScript Tip3:可選串連運算子">
-<meta property="og:url" content="https://maggie19921001.github.io/hexo-web/2024/08/08/[JavaScript]%E5%8F%AF%E9%81%B8%E4%B8%B2%E9%80%A3%E9%81%8B%E7%AE%97%E5%AD%90/index.html">
+<meta property="og:title" content="JavaScript Tip5:什麼是一級函式？高階函式？">
+<meta property="og:url" content="https://maggie19921001.github.io/hexo-web/2024/11/09/[JavaScript]%E4%BB%80%E9%BA%BC%E6%98%AF%E9%AB%98%E9%9A%8E%E5%87%BD%E5%BC%8F%EF%BC%9F/index.html">
 <meta property="og:site_name" content="YuHuei&#39;s blog">
-<meta property="og:description" content="一般來說，在取物件的值時會使用. 如下程式碼若沒有加上問號，會顯示：Error: Cannot read properties of undefined (reading &#39;name&#39;)以及Error: Unexpected token &#39;(&#39; 寫上?.後就會變成只顯示undefined 12345678910111213const adventurer &#x3D; &amp;#1">
+<meta property="og:description" content="一級函式？一級函式（First-Class Function）是指函式在語言中被視為「一級公民」的特性。在 JavaScript 等支持一級函式的語言中，函式可以像變數一樣被使用和操作，例如：  將函式賦值給變數：函式可以直接被賦值給一個變數，讓變數指向這個函式。 1234const greet &#x3D; function(name) &#123;  return &#96;Hello, $&#123;name">
 <meta property="og:locale" content="en_US">
-<meta property="article:published_time" content="2024-08-08T03:42:26.000Z">
-<meta property="article:modified_time" content="2024-11-09T04:55:52.429Z">
+<meta property="article:published_time" content="2024-11-09T04:14:38.000Z">
+<meta property="article:modified_time" content="2024-11-09T07:57:33.509Z">
 <meta property="article:author" content="Yu Huei">
 <meta property="article:tag" content="JavaScript">
 <meta name="twitter:card" content="summary">
@@ -41,7 +41,7 @@
     
     <title>
         
-            JavaScript Tip3:可選串連運算子 -
+            JavaScript Tip5:什麼是一級函式？高階函式？ -
         
         YuHuei
     </title>
@@ -520,7 +520,7 @@
         <div class="article-title relative w-full">
             
                 <div class="w-full flex items-center pt-6 justify-start">
-                    <h1 class="article-title-regular text-second-text-color tracking-tight text-4xl md:text-6xl font-semibold px-2 sm:px-6 md:px-8 py-3">JavaScript Tip3:可選串連運算子</h1>
+                    <h1 class="article-title-regular text-second-text-color tracking-tight text-4xl md:text-6xl font-semibold px-2 sm:px-6 md:px-8 py-3">JavaScript Tip5:什麼是一級函式？高階函式？</h1>
                 </div>
             
             </div>
@@ -541,15 +541,15 @@
                         <div class="article-meta-info">
     <span class="article-date article-meta-item">
         <i class="fa-regular fa-pen-fancy"></i>&nbsp;
-        <span class="desktop">2024-08-08 11:42:26</span>
-        <span class="mobile">2024-08-08 11:42:26</span>
+        <span class="desktop">2024-11-09 12:14:38</span>
+        <span class="mobile">2024-11-09 12:14:38</span>
         <span class="hover-info">Created</span>
     </span>
     
         <span class="article-date article-meta-item">
             <i class="fa-regular fa-wrench"></i>&nbsp;
-            <span class="desktop">2024-11-09 12:55:52</span>
-            <span class="mobile">2024-11-09 12:55:52</span>
+            <span class="desktop">2024-11-09 15:57:33</span>
+            <span class="mobile">2024-11-09 15:57:33</span>
             <span class="hover-info">Updated</span>
         </span>
     
@@ -583,13 +583,46 @@
 
 
         <div class="article-content markdown-body px-2 sm:px-6 md:px-8 pb-8">
-            <p>一般來說，在取物件的值時會使用<code>.</code> 如下程式碼<br>若沒有加上問號，會顯示：<br><code>Error: Cannot read properties of undefined (reading &#39;name&#39;)</code><br>以及<br><code>Error: Unexpected token &#39;(&#39;</code></p>
-<p>寫上<code>?.</code>後就會變成只顯示<code>undefined</code></p>
-<div class="highlight-container" data-rel="Javascript"><figure class="iseeu highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> adventurer = &#123;</span><br><span class="line">  <span class="attr">name</span>: <span class="string">&#x27;Alice&#x27;</span>,</span><br><span class="line">  <span class="attr">cat</span>: &#123;</span><br><span class="line">    <span class="attr">name</span>: <span class="string">&#x27;Dinah&#x27;</span>,</span><br><span class="line">  &#125;,</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> dogName = adventurer.<span class="property">dog</span>?.<span class="property">name</span>;</span><br><span class="line"><span class="variable language_">console</span>.<span class="title function_">log</span>(dogName);</span><br><span class="line"><span class="comment">// Expected output: undefined</span></span><br><span class="line"></span><br><span class="line"><span class="variable language_">console</span>.<span class="title function_">log</span>(adventurer.<span class="property">someNonExistentMethod</span>?.());</span><br><span class="line"><span class="comment">// Expected output: undefined</span></span><br></pre></td></tr></table></figure></div>
+            <h2 id="一級函式？"><a href="#一級函式？" class="headerlink" title="一級函式？"></a>一級函式？</h2><p>一級函式（First-Class Function）是指<strong>函式在語言中被視為「一級公民」的特性</strong>。<br>在 JavaScript 等支持一級函式的語言中，函式可以像變數一樣被使用和操作，例如：</p>
+<ol>
+<li><p><strong>將函式賦值給變數</strong>：函式可以直接被賦值給一個變數，讓變數指向這個函式。</p>
+<div class="highlight-container" data-rel="Javascript"><figure class="iseeu highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> greet = <span class="keyword">function</span>(<span class="params">name</span>) &#123;</span><br><span class="line">  <span class="keyword">return</span> <span class="string">`Hello, <span class="subst">$&#123;name&#125;</span>`</span>;</span><br><span class="line">&#125;;</span><br><span class="line"><span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="title function_">greet</span>(<span class="string">&quot;Alice&quot;</span>)); <span class="comment">// 輸出 &quot;Hello, Alice&quot;</span></span><br></pre></td></tr></table></figure></div>
+</li>
+<li><p><strong>作為參數傳遞</strong>：函式可以被傳遞給另一個函式作為參數，這樣的函式稱為「回呼函式」（callback function）。</p>
+<div class="highlight-container" data-rel="Javascript"><figure class="iseeu highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">function</span> <span class="title function_">executeCallback</span>(<span class="params">callback</span>) &#123;</span><br><span class="line">  <span class="title function_">callback</span>();</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="title function_">executeCallback</span>(<span class="function">() =&gt;</span> <span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="string">&quot;Callback executed&quot;</span>)); <span class="comment">// 輸出 &quot;Callback executed&quot;</span></span><br></pre></td></tr></table></figure></div>
+</li>
+<li><p><strong>作為回傳值</strong>：函式可以作為另一個函式的回傳值，這正是函式工廠的概念。函式能回傳函式，讓結果變得更動態和靈活。</p>
+<div class="highlight-container" data-rel="Javascript"><figure class="iseeu highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">function</span> <span class="title function_">createGreeter</span>(<span class="params">greeting</span>) &#123;</span><br><span class="line">  <span class="keyword">return</span> <span class="keyword">function</span>(<span class="params">name</span>) &#123;</span><br><span class="line">    <span class="keyword">return</span> <span class="string">`<span class="subst">$&#123;greeting&#125;</span>, <span class="subst">$&#123;name&#125;</span>`</span>;</span><br><span class="line">  &#125;;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> sayHello = <span class="title function_">createGreeter</span>(<span class="string">&quot;Hello&quot;</span>);</span><br><span class="line"><span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="title function_">sayHello</span>(<span class="string">&quot;Bob&quot;</span>)); <span class="comment">// 輸出 &quot;Hello, Bob&quot;</span></span><br></pre></td></tr></table></figure></div>
+</li>
+<li><p><strong>存入資料結構</strong>：函式可以作為陣列或物件的元素來存取，使函式可以在不同資料結構中被組合、調用。</p>
+<div class="highlight-container" data-rel="Javascript"><figure class="iseeu highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> actions = [</span><br><span class="line">  <span class="function">() =&gt;</span> <span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="string">&quot;Action 1&quot;</span>),</span><br><span class="line">  <span class="function">() =&gt;</span> <span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="string">&quot;Action 2&quot;</span>),</span><br><span class="line">];</span><br><span class="line">actions.<span class="title function_">forEach</span>(<span class="function"><span class="params">action</span> =&gt;</span> <span class="title function_">action</span>()); <span class="comment">// 輸出 &quot;Action 1&quot; 和 &quot;Action 2&quot;</span></span><br></pre></td></tr></table></figure></div></li>
+</ol>
+<h3 id="總結"><a href="#總結" class="headerlink" title="總結"></a>總結</h3><p>一級函式的特性讓函式可以像數字、字串等資料一樣靈活地使用，這是實現高階函式、回呼函式以及函式工廠的基礎。</p>
+<h2 id="高階函式？"><a href="#高階函式？" class="headerlink" title="高階函式？"></a>高階函式？</h2><p>高階函式（Higher-Order Function）指的是能夠接收另一個函式作為參數，或是將函式作為回傳值的函式。<br>相較於一級函式是原有特性，高階函式則是一種運用的手法以達到程式碼的抽象化。</p>
+<ol>
+<li><strong>接受函式作為參數</strong>：如果函式接受其他函式作為參數傳入，那麼它就是高階函式。<br>常見的例子包括 map、filter、reduce 等。這些函式會接受一個回呼函式（callback function），並在每個元素上應用該函式。</li>
+</ol>
+<div class="highlight-container" data-rel="Javascript"><figure class="iseeu highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> numbers = [<span class="number">1</span>, <span class="number">2</span>, <span class="number">3</span>];</span><br><span class="line"><span class="keyword">const</span> doubled = numbers.<span class="title function_">map</span>(<span class="function"><span class="params">num</span> =&gt;</span> num * <span class="number">2</span>); <span class="comment">// `map` 接受 `num =&gt; num * 2` 作為參數</span></span><br></pre></td></tr></table></figure></div>
 
-<p>Reference: <a class="link"   target="_blank" rel="noopener" href="https://developer.mozilla.org/zh-TW/docs/Web/JavaScript/Reference/Operators/Optional_chaining" >MDN <i class="fa-regular fa-arrow-up-right-from-square fa-sm"></i></a></p>
+<ol start="2">
+<li><strong>回傳函式作為結果</strong>：如果函式的回傳值是一個函式，那麼它也是高階函式。<br>這在「函式工廠」或「柯里化」中常見，例如：</li>
+</ol>
+<div class="highlight-container" data-rel="Javascript"><figure class="iseeu highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">function</span> <span class="title function_">createMultiplier</span>(<span class="params">factor</span>) &#123;</span><br><span class="line">  <span class="keyword">return</span> <span class="keyword">function</span>(<span class="params">number</span>) &#123;</span><br><span class="line">    <span class="keyword">return</span> number * factor;</span><br><span class="line">  &#125;;</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">const</span> double = <span class="title function_">createMultiplier</span>(<span class="number">2</span>); <span class="comment">// `createMultiplier` 回傳一個新的函式</span></span><br><span class="line"><span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="title function_">double</span>(<span class="number">5</span>)); <span class="comment">// 10</span></span><br></pre></td></tr></table></figure></div>
+
+<ol start="3">
+<li><strong>組合或轉換函式</strong>：有時候，高階函式會用來組合或轉換其他函式。<br>例如，可以使用高階函式來創建條件判斷或執行順序的組合，這在函式式編程中相當常見。</li>
+</ol>
+<p>高階函式的重點在於它們賦予了程式碼更高的靈活性和可重複使用性。透過將函式作為參數或回傳值，可以減少重複的程式碼，並使程式更具模組化和可讀性。</p>
+<h3 id="量產函式的「函式工廠」？"><a href="#量產函式的「函式工廠」？" class="headerlink" title="量產函式的「函式工廠」？"></a>量產函式的「函式工廠」？</h3><p>函式工廠（Function Factory）是一種產生函式的高階函式。<br>這類函式會根據傳入的參數生成新的函式，以達到重複使用和提高靈活性的效果。<br>簡單來說，函式工廠就是「製造函式的函式」，可以動態地創建出不同用途的函式。</p>
+<p>函式工廠的常見用途是生成具有相似行為的函式，例如設定不同的計算係數、條件或動態的邏輯。這樣可以避免重複程式碼，並讓函式更具參數化的彈性。</p>
+<h3 id="例子"><a href="#例子" class="headerlink" title="例子"></a>例子</h3><p>以下是一個簡單的函式工廠示例，它根據輸入的係數來生成不同的乘法函式：</p>
+<div class="highlight-container" data-rel="Javascript"><figure class="iseeu highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">function</span> <span class="title function_">createMultiplier</span>(<span class="params">factor</span>) &#123;</span><br><span class="line">  <span class="keyword">return</span> <span class="keyword">function</span>(<span class="params">number</span>) &#123;</span><br><span class="line">    <span class="keyword">return</span> number * factor;</span><br><span class="line">  &#125;;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> double = <span class="title function_">createMultiplier</span>(<span class="number">2</span>); <span class="comment">// 生成一個乘以2的函式</span></span><br><span class="line"><span class="keyword">const</span> triple = <span class="title function_">createMultiplier</span>(<span class="number">3</span>); <span class="comment">// 生成一個乘以3的函式</span></span><br><span class="line"></span><br><span class="line"><span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="title function_">double</span>(<span class="number">5</span>)); <span class="comment">// 輸出 10</span></span><br><span class="line"><span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="title function_">triple</span>(<span class="number">5</span>)); <span class="comment">// 輸出 15</span></span><br></pre></td></tr></table></figure></div>
+
+<p>在這個例子中，<code>createMultiplier</code> 是一個函式工廠，它根據不同的 <code>factor</code> 生成不同的乘法函式。<br><code>double</code> 是一個將輸入數字乘以2的函式，而 <code>triple</code> 是一個將輸入數字乘以3的函式。<br>這樣可以輕鬆創建更多類似的函式，並且不用重複撰寫相似的程式碼。</p>
+<p>當有少數的函式時，不使用函式工廠的方式也可以很清楚。但如果需要更多（如10個或更多）這樣的乘法函式，使用函式工廠的程式碼會簡潔得多。</p>
+<p>函式工廠的重點是當需求變動或需要產生多種<strong>相似邏輯</strong>時，能透過參數化達到更高的靈活性和模組化，減少重複的程式碼，使程式更具可維護性。</p>
 <blockquote>
-<p>有時在寫程式時就可以預期會取不到值，如表單一開始還未新增項目時為空值，就可以用這個語法</p>
+<p>程式碼的抽象化就是把重複的步驟或邏輯抽取出來，寫成通用的函式或模組。</p>
 </blockquote>
 
         </div>
@@ -614,13 +647,13 @@
                     <div class="article-prev border-border-color shadow-redefine-flat shadow-shadow-color-2 rounded-medium px-4 py-2 hover:shadow-redefine-flat-hover hover:shadow-shadow-color-2">
                         <a class="prev"
                         rel="prev"
-                        href="/hexo-web/2024/08/14/%5BjQuery%5D%E5%9F%BA%E7%A4%8E%E5%85%A5%E9%96%80/"
+                        href="/hexo-web/2024/11/09/%5BJavaScript%5D%E7%AB%8B%E5%8D%B3%E5%87%BD%E5%BC%8F%EF%BC%9F/"
                         >
                             <span class="left arrow-icon flex justify-center items-center">
                                 <i class="fa-solid fa-chevron-left"></i>
                             </span>
                             <span class="title flex justify-center items-center">
-                                <span class="post-nav-title-item">jQuery基礎</span>
+                                <span class="post-nav-title-item">JavaScript Tip4:立即函式？</span>
                                 <span class="post-nav-item">Prev posts</span>
                             </span>
                         </a>
@@ -630,10 +663,10 @@
                     <div class="article-next border-border-color shadow-redefine-flat shadow-shadow-color-2 rounded-medium px-4 py-2 hover:shadow-redefine-flat-hover hover:shadow-shadow-color-2">
                         <a class="next"
                         rel="next"
-                        href="/hexo-web/2024/08/07/%5BAPI%5D%E9%97%9C%E9%8D%B5%E5%AD%97%E6%90%9C%E5%B0%8B%EF%BC%8B%E6%90%9C%E5%B0%8B%E7%B5%90%E6%9E%9C%E6%8F%9B%E9%A0%81/"
+                        href="/hexo-web/2024/11/04/%5BJavaScript%5D%E9%99%B3%E8%BF%B0%E5%BC%8F%E8%88%87%E8%A1%A8%E9%81%94%E5%BC%8F/"
                         >
                             <span class="title flex justify-center items-center">
-                                <span class="post-nav-title-item">API 關鍵字搜尋＋搜尋結果換頁</span>
+                                <span class="post-nav-title-item">JavaScript Tip2:陳述式與表達式怎麼分？</span>
                                 <span class="post-nav-item">Next posts</span>
                             </span>
                             <span class="right arrow-icon flex justify-center items-center">
@@ -697,8 +730,8 @@
             <div class="post-toc-wrap">
     <div class="post-toc">
         <div class="toc-title">On this page</div>
-        <div class="page-title">JavaScript Tip3:可選串連運算子</div>
-        
+        <div class="page-title">JavaScript Tip5:什麼是一級函式？高階函式？</div>
+        <ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%B8%80%E7%B4%9A%E5%87%BD%E5%BC%8F%EF%BC%9F"><span class="nav-text">一級函式？</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E7%B8%BD%E7%B5%90"><span class="nav-text">總結</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E9%AB%98%E9%9A%8E%E5%87%BD%E5%BC%8F%EF%BC%9F"><span class="nav-text">高階函式？</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E9%87%8F%E7%94%A2%E5%87%BD%E5%BC%8F%E7%9A%84%E3%80%8C%E5%87%BD%E5%BC%8F%E5%B7%A5%E5%BB%A0%E3%80%8D%EF%BC%9F"><span class="nav-text">量產函式的「函式工廠」？</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%BE%8B%E5%AD%90"><span class="nav-text">例子</span></a></li></ol></li></ol>
 
     </div>
 </div>
